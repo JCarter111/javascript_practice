@@ -12,17 +12,37 @@ const {
 } = require("../challenges/week1");
 
 describe("capitalize", () => {
-  test("returns a capitalized string", () => {
+  test.only("returns a capitalized string", () => {
     expect(capitalize("hello")).toBe("Hello");
   });
 
-  test("does nothing if the string is already capitalized", () => {
+  test.only("does nothing if the string is already capitalized", () => {
     expect(capitalize("Hello")).toBe("Hello");
   });
 
-  test("capitalizes the first character if the string is a sentence", () => {
+  test.only("capitalizes the first character if the string is a sentence", () => {
     expect(capitalize("the quick fox")).toBe("The quick fox");
   });
+  // does function work if empty string is input
+  test.only("test empty string", () => {
+    expect(capitalize("")).toBe("");
+  });
+   // does function work if string with numbers at start is input
+   test.only("test number in first position of string", () => {
+    expect(capitalize("123 test")).toBe("123 test");
+  });
+  // does function work if string with quotation mark at start is input
+  test.only("test quotation mark character in first position of string", () => {
+    expect(capitalize("' test")).toBe("' test");
+  });
+  // does function work if string with other characters e.g. £ at start is input
+  test.only("test non standard characters in first position of string", () => {
+    expect(capitalize("£ test")).toBe("£ test");
+  });
+    // does function produce error message if undefined word provided
+   // test.only("test error message if undefined word provided", () => {
+   //   expect(capitalize()).toThrow("word is required");
+  //  });
 });
 
 describe("generateInitials", () => {
