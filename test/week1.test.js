@@ -124,6 +124,16 @@ describe("getMiddleCharacter", () => {
   test("returns the middle 2 characters from a string of even length", () => {
     expect(getMiddleCharacter("help!!")).toBe("lp");
   });
+  // test zero length string
+  test("returns zero length string message", () => {
+    expect(getMiddleCharacter("")).toBe("string length is zero");
+  });
+  // test undefined string
+  test("test undefined string", () => {
+    expect(() => {
+      getMiddleCharacter();
+  }).toThrow("str is required");
+ });
 });
 
 describe("reverseWord", () => {

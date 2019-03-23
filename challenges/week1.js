@@ -35,6 +35,18 @@ function getSalePrice(originalPrice, reduction) {
 function getMiddleCharacter(str) {
   if (str === undefined) throw new Error("str is required");
   // Add your code here!
+  // if the string length is zero, return message
+  if (str.length === 0) {
+    return "string length is zero";
+  }
+  // check whether string length is odd or even
+  if (str.length%2 === 1) {
+    //odd string length - select one middle character
+    return str.slice(((str.length - 1)/2),1);
+  } else {
+    //even length string - select two middle characters
+    return str.slice(((str.length - 1)/2),2);
+  }
 }
 
 function reverseWord(word) {
