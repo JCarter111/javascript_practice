@@ -18,12 +18,18 @@ function addVAT(originalPrice, vatRate) {
   if (originalPrice === undefined) throw new Error("originalPrice is requied");
   if (vatRate === undefined) throw new Error("vatRate is required");
   // Add your code here!
+  // new price = original price * (vatRate + 100)/100
+  // round the new price to 2 decimal places because value is pounds and pence
+  // tests expect value in 2 dp format e.g 32.95
+  return Math.round(100*(originalPrice * ((100 + vatRate)/100)))/100;
 }
 
 function getSalePrice(originalPrice, reduction) {
   if (originalPrice === undefined) throw new Error("originalPrice is required");
   if (reduction === undefined) throw new Error("reduction is required");
   // Add your code here!
+  if (reduction < 0) {return "reduction is less than zero";}
+  return Math.round(100*((100 - reduction)/100)*originalPrice)/100;
 }
 
 function getMiddleCharacter(str) {

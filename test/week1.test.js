@@ -41,15 +41,35 @@ describe("capitalize", () => {
     expect(capitalize("£ test")).toBe("£ test");
   });
     // does function produce error message if undefined word provided
-   // test("test error message if undefined word provided", () => {
-   //   expect(capitalize()).toThrow("word is required");
-  //  });
+    //Note: need to wrap capitalize expected output into a function
+    // to avoid breaking the programme with the error test 
+   test("test error message if undefined word provided", () => {
+     expect(() => {
+       capitalize();
+   }).toThrow("word is required");
+  });
 });
 
 describe("generateInitials", () => {
-  test.only("returns the initials of a firstname and surname", () => {
+  test("returns the initials of a firstname and surname", () => {
     expect(generateInitials("Frederic", "Bonneville")).toBe("F.B");
   });
+  // test lowercase firstname, lastname
+  test("returns the initials of a lowercase firstname and surname", () => {
+    expect(generateInitials("frederic", "bonneville")).toBe("F.B");
+  });
+  // test undefined firstname
+  test("test error message if undefined firstname provided", () => {
+    expect(() => {
+      generateInitials();
+  }).toThrow("firstName is required");
+ });
+  // test undefined lastname
+  test("test error message if undefined lastname provided", () => {
+    expect(() => {
+      generateInitials("Frederick");
+  }).toThrow("lastName is required");
+ });
 });
 
 describe("addVAT", () => {
@@ -71,20 +91,28 @@ describe("addVAT", () => {
 });
 
 describe("getSalePrice", () => {
-  test("reduces a price of 100 by 50%", () => {
+  test.only("reduces a price of 100 by 50%", () => {
     expect(getSalePrice(100, 50)).toBe(50);
   });
 
-  test("reduces a price of 100 by 33.3%", () => {
+  test.only("reduces a price of 100 by 33.3%", () => {
     expect(getSalePrice(100, 33.3)).toBe(66.7);
   });
 
-  test("reduces a price of 79.99 by 15%", () => {
+  test.only("reduces a price of 79.99 by 15%", () => {
     expect(getSalePrice(79.99, 15)).toBe(67.99);
   });
 
-  test("reduces a price of 50 by 0%", () => {
-    expect(getSalePrice(50, 0)).toBe(0);
+  test.only("reduces a price of 50 by 0%", () => {
+    //test incorrect here
+   // expect(getSalePrice(50, 0)).toBe(0)
+    expect(getSalePrice(50, 0)).toBe(50);
+  });
+  test.only("reduces a price of 50 by 100%", () => {
+    expect(getSalePrice(50, 100)).toBe(0);
+  });
+  test.only("negative reduction input", () => {
+    expect(getSalePrice(30, -45)).toBe("reduction is less than zero");
   });
 });
 
