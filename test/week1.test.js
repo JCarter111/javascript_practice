@@ -161,21 +161,21 @@ describe("reverseWord", () => {
   });
 });
 describe("reverseAllWords", () => {
-  test.only("reverses a single word in an array", () => {
+  test("reverses a single word in an array", () => {
     expect(reverseAllWords(["jest"])).toEqual(["tsej"]);
   });
 
-  test.only("reverses a multiple words in an array", () => {
+  test("reverses a multiple words in an array", () => {
     expect(
       reverseAllWords(["jest", "mocha", "rspec", "jasmine", "selenium"])
     ).toEqual(["tsej", "ahcom", "cepsr", "enimsaj", "muineles"]);
   });
   // test empty aray input
-  test.only("handling an empty array", () => {
+  test("handling an empty array", () => {
     expect(reverseAllWords([])).toEqual([]);
   });
   // test undefined array - error message should be produced
-  test.only("test error message if undefined array", () => {
+  test("test error message if undefined array", () => {
     expect(() => {
       reverseAllWords();
   }).toThrow("words is required");
@@ -183,7 +183,7 @@ describe("reverseAllWords", () => {
 });
 
 describe("countLinuxUsers", () => {
-  test("returns 0 if no Linux users found", () => {
+  test.only("returns 0 if no Linux users found", () => {
     const users = [
       { name: "Heather", OS: "Windows 8", type: "Windows" },
       { name: "Paul", OS: "Firefox OS", type: "Unknown" },
@@ -193,7 +193,7 @@ describe("countLinuxUsers", () => {
     expect(countLinuxUsers(users)).toBe(0);
   });
 
-  test("returns the correct number of Linux users found", () => {
+  test.only("returns the correct number of Linux users found", () => {
     const users = [
       { name: "Heather", OS: "Ubuntu 18.04", type: "Linux" },
       { name: "Paul", OS: "Ubuntu 16.04", type: "Linux" },
@@ -205,6 +205,17 @@ describe("countLinuxUsers", () => {
     ];
     expect(countLinuxUsers(users)).toBe(5);
   });
+  // test empty array, should get count of zero
+  test("empty array of users", () => {
+    const users = [];
+    expect(countLinuxUsers(users)).toBe(0);
+  });
+  // test undefined array - error message should be produced
+  test("test error message if undefined array", () => {
+    expect(() => {
+      countLinuxUsers();
+  }).toThrow("users is required");
+ });
 });
 
 describe("getMeanScore", () => {
@@ -219,19 +230,19 @@ describe("getMeanScore", () => {
 });
 
 describe("simpleFizzBuzz", () => {
-  test("returns 'fizz' if the number is divisible by 3", () => {
+  test.only("returns 'fizz' if the number is divisible by 3", () => {
     expect(simpleFizzBuzz(3)).toBe("fizz");
   });
 
-  test("returns 'buzz' if the number is divisible by 5", () => {
+  test.only("returns 'buzz' if the number is divisible by 5", () => {
     expect(simpleFizzBuzz(5)).toBe("buzz");
   });
 
-  test("returns the number if the number is divisible by neither 3 nor 5", () => {
+  test.only("returns the number if the number is divisible by neither 3 nor 5", () => {
     expect(simpleFizzBuzz(4)).toBe(4);
   });
 
-  test("returns 'fizzbuzz' if the number is divisible by 3 and 5", () => {
+  test.only("returns 'fizzbuzz' if the number is divisible by 3 and 5", () => {
     expect(simpleFizzBuzz(15)).toBe("fizzbuzz");
   });
 });

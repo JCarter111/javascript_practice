@@ -90,16 +90,40 @@ function reverseAllWords(words) {
 function countLinuxUsers(users) {
   if (users === undefined) throw new Error("users is required");
   // Add your code here!
+  let iUserCount = 0;
+  users.forEach(function(user) {  
+    // trying to be clever and do split, reverse and join of
+    // each array element in one step
+    // can use user.type instead of user("type")
+    if (user("type") === "Linux") {
+    iUserCount = iUserCount + 1;
+    }
+  });
+  return iUserCount;
 }
 
 function getMeanScore(scores) {
   if (scores === undefined) throw new Error("scores is required");
   // Add your code here!
-}
+  // split array into
+  //Math.mean(scores)
+  // reduce method
+  //const reducer = (accumulator, currentvalue) => accumulator + currentvalue;
 
+// return Math.round((scores.reduce(reducer)/scores.length),2);
+ // or loop through array and add scores - can test for non numeric or blank values 
+}
 function simpleFizzBuzz(n) {
   if (n === undefined) throw new Error("n is required");
   // Add your code here!
+  // need to add code to allow for numbers divisble by 3 and 5
+  if (n % 3 === 0) {
+    return("fizz"); 
+  } else if (n % 4 === 0) {
+     return("buzz"); 
+  } else {
+    return n;
+  }
 }
 
 module.exports = {
