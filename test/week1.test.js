@@ -5,6 +5,7 @@ const {
   getSalePrice,
   getMiddleCharacter,
   reverseWord,
+  reverseWordAlt,
   reverseAllWords,
   countLinuxUsers,
   getMeanScore,
@@ -117,19 +118,19 @@ describe("getSalePrice", () => {
 });
 
 describe("getMiddleCharacter", () => {
-  test.only("returns the middle character from a string of odd length", () => {
+  test("returns the middle character from a string of odd length", () => {
     expect(getMiddleCharacter("bears!!!!")).toBe("s");
   });
 
-  test.only("returns the middle 2 characters from a string of even length", () => {
+  test("returns the middle 2 characters from a string of even length", () => {
     expect(getMiddleCharacter("help!!")).toBe("lp");
   });
   // test zero length string
-  test.only("returns zero length string message", () => {
+  test("returns zero length string message", () => {
     expect(getMiddleCharacter("")).toBe("string length is zero");
   });
   // test undefined string
-  test.only("test undefined string", () => {
+  test("test undefined string", () => {
     expect(() => {
       getMiddleCharacter();
   }).toThrow("str is required");
@@ -147,17 +148,38 @@ describe("reverseWord", () => {
     );
   });
 });
+// test reverseWordAlt - using different method for reverseWord function
+describe("reverseWord", () => {
+  test("returns the provided word, reversed", () => {
+    expect(reverseWordAlt("foo")).toBe("oof");
+  });
 
+  test("returns a longer sentence, reversed", () => {
+    expect(reverseWordAlt("why would you even want to do this?")).toBe(
+      "?siht od ot tnaw neve uoy dluow yhw"
+    );
+  });
+});
 describe("reverseAllWords", () => {
-  test("reverses a single word in an array", () => {
+  test.only("reverses a single word in an array", () => {
     expect(reverseAllWords(["jest"])).toEqual(["tsej"]);
   });
 
-  test("reverses a multiple words in an array", () => {
+  test.only("reverses a multiple words in an array", () => {
     expect(
       reverseAllWords(["jest", "mocha", "rspec", "jasmine", "selenium"])
     ).toEqual(["tsej", "ahcom", "cepsr", "enimsaj", "muineles"]);
   });
+  // test empty aray input
+  test.only("handling an empty array", () => {
+    expect(reverseAllWords([])).toEqual([]);
+  });
+  // test undefined array - error message should be produced
+  test.only("test error message if undefined array", () => {
+    expect(() => {
+      reverseAllWords();
+  }).toThrow("words is required");
+ });
 });
 
 describe("countLinuxUsers", () => {
@@ -202,7 +224,7 @@ describe("simpleFizzBuzz", () => {
   });
 
   test("returns 'buzz' if the number is divisible by 5", () => {
-    expect(simpleFizzBuzz(3)).toBe("buzz");
+    expect(simpleFizzBuzz(5)).toBe("buzz");
   });
 
   test("returns the number if the number is divisible by neither 3 nor 5", () => {

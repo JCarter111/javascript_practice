@@ -54,7 +54,8 @@ function getMiddleCharacter(str) {
 function reverseWord(word) {
   if (word === undefined) throw new Error("word is required");
   // Add your code here!
-  // using array functions (read about on free code camp)
+  // using array functions (read about this method on free code camp)
+  // Carried out in several steps so that I can remember how to do this
   // split the word into an array of single letters named splitWord
   let splitWord = word.split("");
   // reverse the array order into a second array named reverseArray
@@ -62,19 +63,28 @@ function reverseWord(word) {
   // join array back together into a string
   return reverseArray.join("");
 }
-function reverseWord2(word) {
+function reverseWordAlt(word) {
   if (word === undefined) throw new Error("word is required");
   // Add your code here!
   // using a for loop (decrementing loop)
- let reversedWord = ""
-  for (let i = word.length - 1; i >= 0; i= i -1) {
-    reversedWord = word[i];
+ let reversedWordString = ""
+  for (let i = word.length - 1; i >= 0; i= i - 1) {
+    reversedWordString = reversedWordString + word[i];
   }
-  return reversedWord;
+  return reversedWordString;
 }
 function reverseAllWords(words) {
   if (words === undefined) throw new Error("words is required");
-  // Add your code here!
+  // Add your code here! 
+  const reversedWords = [];
+  //using my favourite forEach function - eek!
+  words.forEach(function(word) {  
+    // trying to be clever and do split, reverse and join of
+    // each array element in one step
+    let currentRevWord = word.split("").reverse("").join("");
+    reversedWords.push(currentRevWord);
+  });
+  return reversedWords;
 }
 
 function countLinuxUsers(users) {
@@ -99,7 +109,7 @@ module.exports = {
   getSalePrice,
   getMiddleCharacter,
   reverseWord,
-  reverseWord2,
+  reverseWordAlt,
   reverseAllWords,
   countLinuxUsers,
   getMeanScore,
