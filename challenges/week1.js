@@ -42,18 +42,36 @@ function getMiddleCharacter(str) {
   // check whether string length is odd or even
   if (str.length%2 === 1) {
     //odd string length - select one middle character
-    return str.slice(((str.length - 1)/2),1);
+    // remember slice first position is zero
+    return str.slice(((str.length - 1)/2),((str.length - 1)/2) + 1);
   } else {
     //even length string - select two middle characters
-    return str.slice(((str.length - 1)/2),2);
+    //remember slice positions start from zero
+    return str.slice(str.length/2 - 1,(str.length/2) + 1);
   }
 }
-
+// trying out two methods for reverseWord
 function reverseWord(word) {
   if (word === undefined) throw new Error("word is required");
   // Add your code here!
+  // using array functions (read about on free code camp)
+  // split the word into an array of single letters named splitWord
+  let splitWord = word.split("");
+  // reverse the array order into a second array named reverseArray
+  let reverseArray = splitWord.reverse("");
+  // join array back together into a string
+  return reverseArray.join("");
 }
-
+function reverseWord2(word) {
+  if (word === undefined) throw new Error("word is required");
+  // Add your code here!
+  // using a for loop (decrementing loop)
+ let reversedWord = ""
+  for (let i = word.length - 1; i >= 0; i= i -1) {
+    reversedWord = word[i];
+  }
+  return reversedWord;
+}
 function reverseAllWords(words) {
   if (words === undefined) throw new Error("words is required");
   // Add your code here!
@@ -81,6 +99,7 @@ module.exports = {
   getSalePrice,
   getMiddleCharacter,
   reverseWord,
+  reverseWord2,
   reverseAllWords,
   countLinuxUsers,
   getMeanScore,

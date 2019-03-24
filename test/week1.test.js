@@ -91,45 +91,45 @@ describe("addVAT", () => {
 });
 
 describe("getSalePrice", () => {
-  test.only("reduces a price of 100 by 50%", () => {
+  test("reduces a price of 100 by 50%", () => {
     expect(getSalePrice(100, 50)).toBe(50);
   });
 
-  test.only("reduces a price of 100 by 33.3%", () => {
+  test("reduces a price of 100 by 33.3%", () => {
     expect(getSalePrice(100, 33.3)).toBe(66.7);
   });
 
-  test.only("reduces a price of 79.99 by 15%", () => {
+  test("reduces a price of 79.99 by 15%", () => {
     expect(getSalePrice(79.99, 15)).toBe(67.99);
   });
 
-  test.only("reduces a price of 50 by 0%", () => {
+  test("reduces a price of 50 by 0%", () => {
     //test incorrect here
    // expect(getSalePrice(50, 0)).toBe(0)
     expect(getSalePrice(50, 0)).toBe(50);
   });
-  test.only("reduces a price of 50 by 100%", () => {
+  test("reduces a price of 50 by 100%", () => {
     expect(getSalePrice(50, 100)).toBe(0);
   });
-  test.only("negative reduction input", () => {
+  test("negative reduction input", () => {
     expect(getSalePrice(30, -45)).toBe("reduction is less than zero");
   });
 });
 
 describe("getMiddleCharacter", () => {
-  test("returns the middle character from a string of odd length", () => {
+  test.only("returns the middle character from a string of odd length", () => {
     expect(getMiddleCharacter("bears!!!!")).toBe("s");
   });
 
-  test("returns the middle 2 characters from a string of even length", () => {
+  test.only("returns the middle 2 characters from a string of even length", () => {
     expect(getMiddleCharacter("help!!")).toBe("lp");
   });
   // test zero length string
-  test("returns zero length string message", () => {
+  test.only("returns zero length string message", () => {
     expect(getMiddleCharacter("")).toBe("string length is zero");
   });
   // test undefined string
-  test("test undefined string", () => {
+  test.only("test undefined string", () => {
     expect(() => {
       getMiddleCharacter();
   }).toThrow("str is required");
