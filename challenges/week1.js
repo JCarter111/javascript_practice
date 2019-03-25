@@ -105,22 +105,50 @@ function countLinuxUsers(users) {
 function getMeanScore(scores) {
   if (scores === undefined) throw new Error("scores is required");
   // Add your code here!
-  // split array into
-  //Math.mean(scores)
+  // split array into individual elements and sum
   // reduce method
   //const reducer = (accumulator, currentvalue) => accumulator + currentvalue;
 
 // return Math.round((scores.reduce(reducer)/scores.length),2);
- // or loop through array and add scores - can test for non numeric or blank values 
+ //loop through array and add scores - can test for non numeric or blank values 
+ let sumMeanScores = 0;
+ let countMeanScores = 0;
+
+ scores.forEach(function(score) {
+   // if any of the scores is not a number 
+   // do not add to the average calculation
+   if (typeof score === "number") {
+    sumMeanScores += score;
+    countMeanScores += 1;
+   }
+ });
+// check that final number of values from the array
+//is greater than zero or mean calculation will fail
+ if (countMeanScores > 0) {
+    return Math.round(100* (sumMeanScores/countMeanScores))/100;
+ } else {
+    return 0;
+ }
 }
 function simpleFizzBuzz(n) {
   if (n === undefined) throw new Error("n is required");
   // Add your code here!
+  // check that n is a number
+  if (isNaN(n)) {
+    return("n is not a number");
+  }
   // need to add code to allow for numbers divisble by 3 and 5
-  if (n % 3 === 0) {
-    return("fizz"); 
-  } else if (n % 4 === 0) {
-     return("buzz"); 
+  // and both 3 and 5
+  let strReturn = "";
+
+  if (n % 3 === 0 || n % 5 === 0) {
+    if (n % 3 === 0) {
+      strReturn += "fizz"; 
+    }
+    if (n%5 === 0) {
+      strReturn += "buzz"
+    }
+    return strReturn;
   } else {
     return n;
   }
