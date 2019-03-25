@@ -106,10 +106,10 @@ function getMeanScore(scores) {
   if (scores === undefined) throw new Error("scores is required");
   // Add your code here!
   // split array into individual elements and sum
-  // reduce method
+  // reduce method (found on internet)
   //const reducer = (accumulator, currentvalue) => accumulator + currentvalue;
-
 // return Math.round((scores.reduce(reducer)/scores.length),2);
+
  //loop through array and add scores - can test for non numeric or blank values 
  let sumMeanScores = 0;
  let countMeanScores = 0;
