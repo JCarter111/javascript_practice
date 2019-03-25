@@ -233,6 +233,10 @@ describe("getMeanScore", () => {
   test.only("test non-numeric array", () => {
     expect(getMeanScore([24, 44, "abc", "123","1Xq"])).toBe(34);
   });
+  // test no values input
+  test.only("test no values", () => {
+    expect(getMeanScore([])).toBe(0);
+  });
 });
 
 describe("simpleFizzBuzz", () => {
