@@ -6,7 +6,7 @@ const {
   hasMPostCode
 } = require("../challenges/week2");
 
-xdescribe("getFillings", () => {
+describe("getFillings", () => {
   test("returns the fillings of a sandwich", () => {
     const sandwich = {
       bread: "Sourdough",
@@ -33,7 +33,7 @@ xdescribe("getFillings", () => {
   });
 });
 
-xdescribe("isFromManchester", () => {
+describe("isFromManchester", () => {
   test("returns true if the person is from Manchester", () => {
     const person = {
       name: "Mohammed",
@@ -68,7 +68,7 @@ xdescribe("isFromManchester", () => {
   });
 });
 
-xdescribe("getBusNumbers", () => {
+describe("getBusNumbers", () => {
   // A bus can hold 40 people. This function should return how many buses are required for the number of people
   test("returns 1 if all the people fit in 1 bus", () => {
     expect(getBusNumbers(1)).toBe(1);
@@ -155,7 +155,7 @@ describe("countSheep", () => {
   });
 });
 
-describe.only("hasMPostCode", () => {
+describe("hasMPostCode", () => {
   test("returns true if the person has a postcode starting with M", () => {
     const person = {
       name: "Mohammed",
@@ -193,5 +193,36 @@ describe.only("hasMPostCode", () => {
       }
     };
     expect(hasMPostCode(person)).toBe(false);
+  });
+  // test blank postcode
+  test("returns false if the postcode is blank", () => {
+    const person = {
+      name: "Louise",
+      age: 34,
+      address: {
+        line1: "10a The Bridges",
+        city: "Sheffield",
+        postCode: ""
+      }
+    };
+    expect(hasMPostCode(person)).toBe(false);
+  });
+  // test postcode missing from object - not Manchester address
+  test("returns false if the postcode object missing", () => {
+    const person = {
+      name: "Carl",
+      age: 29,
+      address: {
+        line1: "41 Meyer Lane",
+        city: "Nottingham",
+      }
+    };
+    expect(hasMPostCode(person)).toBe(false);
+  });
+  // test error message
+  test("returns error message if person not supplied", () => {
+    expect(() => {
+      hasMPostCode();
+    }).toThrow("person is required");
   });
 });

@@ -78,16 +78,20 @@ function hasMPostCode(person) {
   // check charAt[0] or substr in postCode property
   // of object is "M"
   // 2nd character in string must be number
-  // for Manchester postcode
-  // this does not work properly (yet!)
-  // doesn't work if e.g. "M 20 9EJ"
-  // isNaN returns false for ' '
+  // for Manchester postcode - substr check
+  if (person.address.hasOwnProperty("postCode") === false) return false;
+  // check for first letter in postcode being "M"
   if (person.address.postCode.substr(0,1) === "M") {
+    // first letter in postcode is M, check whether 
+    // 2nd character in postcode is a number
     if (isNaN(person.address.postCode.substr(1,1))) {
+      // second character is not a number - non Manchester postcode
       return(false);
     } else {
+      // second character is a number - Manchester postcode
       return(true);
     } 
+  // 1st character in postcode is not "M" -non Manchester postcode
   } else {
       return(false);
   }
