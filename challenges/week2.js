@@ -54,6 +54,20 @@ return Math.ceil(people/40);
 function countSheep(arr) {
   if (!arr) throw new Error("arr is required");
   // Your code here!
+  // check for values of sheep in array
+  // counter to increment by one each time 
+  // "sheep" string found
+  // find value in an array
+  // just need to find value not position 
+  // in array
+  // find method
+  let iSheepCounter = 0;
+  arr.find(function(element) {
+  if (element === "sheep") {
+    iSheepCounter = iSheepCounter + 1 ;
+  }
+})
+return iSheepCounter;
 }
 
 function hasMPostCode(person) {
