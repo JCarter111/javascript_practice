@@ -6,7 +6,7 @@ const {
   hasMPostCode
 } = require("../challenges/week2");
 
-describe("getFillings", () => {
+xdescribe("getFillings", () => {
   test("returns the fillings of a sandwich", () => {
     const sandwich = {
       bread: "Sourdough",
@@ -20,11 +20,20 @@ describe("getFillings", () => {
       fillings: ["smoked salmon", "dill"],
       accompaniment: "wedges"
     };
+
     expect(getFillings(sandwich2)).toEqual(["smoked salmon", "dill"]);
+    // does function produce error message if undefined sandwich object
+    // provided
+    //Note: from Week 1 advice
+    //need to wrap getFillings expected output into a function
+    // to avoid breaking the programme with the error test 
+    expect(() => {
+      getFillings();
+    }).toThrow("ingredients is required");
   });
 });
 
-describe("isFromManchester", () => {
+xdescribe("isFromManchester", () => {
   test("returns true if the person is from Manchester", () => {
     const person = {
       name: "Mohammed",
@@ -42,9 +51,24 @@ describe("isFromManchester", () => {
     };
     expect(isFromManchester(person)).toBe(false);
   });
+// additional tests
+// test for error message if person is undefined
+  test("returns error message if undefined person", () => {
+    expect(() => {
+      isFromManchester();
+    }).toThrow("person is required");
+  });
+// test to make sure false returned if city property does not exist
+  test("function returns false if city property not defined", () => {
+    const person = {
+      name: "Percy",
+      age: 51
+    };
+    expect(isFromManchester(person)).toBe(false);
+  });
 });
 
-describe("getBusNumbers", () => {
+describe.only("getBusNumbers", () => {
   // A bus can hold 40 people. This function should return how many buses are required for the number of people
   test("returns 1 if all the people fit in 1 bus", () => {
     expect(getBusNumbers(1)).toBe(1);
@@ -70,6 +94,21 @@ describe("getBusNumbers", () => {
 
   test("returns the correct number of buses for larger numbers of people", () => {
     expect(getBusNumbers(43728)).toBe(1094);
+  });
+  test("returns the correct number of buses if number provided as string", () => {
+    expect(getBusNumbers("123")).toBe(4);
+  });
+  // test error message if no number of people provided
+  test("returns error message if no number of people supplied", () => {
+    expect(() => {
+      getBusNumbers();
+    }).toThrow("people is required");
+  });
+  // test invalid number provided
+  test("returns error message if non-numeric number of people supplied", () => {
+    expect(() => {
+      getBusNumbers("abc");
+    }).toThrow("number is required");
   });
 });
 
