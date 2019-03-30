@@ -73,6 +73,24 @@ return iSheepCounter;
 function hasMPostCode(person) {
   if (person === undefined) throw new Error("person is required");
   // Your code here!
+  // object person with nested address object
+  // find postcode starting with M
+  // check charAt[0] or substr in postCode property
+  // of object is "M"
+  // 2nd character in string must be number
+  // for Manchester postcode
+  // this does not work properly (yet!)
+  // doesn't work if e.g. "M 20 9EJ"
+  // isNaN returns false for ' '
+  if (person.address.postCode.substr(0,1) === "M") {
+    if (isNaN(person.address.postCode.substr(1,1))) {
+      return(false);
+    } else {
+      return(true);
+    } 
+  } else {
+      return(false);
+  }
 }
 
 module.exports = {
