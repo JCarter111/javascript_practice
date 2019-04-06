@@ -62,7 +62,9 @@ function countSheep(arr) {
   // in array
   // find method
   let iSheepCounter = 0;
-  arr.find(function(element) {
+  //rework to use forEach following feedback on homework
+  //arr.find(function(element) {
+  arr.forEach(function(element) {
   if (element === "sheep") {
     iSheepCounter = iSheepCounter + 1 ;
   }
@@ -80,21 +82,27 @@ function hasMPostCode(person) {
   // 2nd character in string must be number
   // for Manchester postcode - substr check
   if (person.address.hasOwnProperty("postCode") === false) return false;
+  // in my original homework I used code below
+
   // check for first letter in postcode being "M"
-  if (person.address.postCode.substr(0,1) === "M") {
+  //if (person.address.postCode.substr(0,1) === "M") {
     // first letter in postcode is M, check whether 
     // 2nd character in postcode is a number
-    if (isNaN(person.address.postCode.substr(1,1))) {
+    
+   // if (isNaN(person.address.postCode.substr(1,1))) {
       // second character is not a number - non Manchester postcode
-      return(false);
-    } else {
+   //   return(false);
+  //  } else {
       // second character is a number - Manchester postcode
-      return(true);
-    } 
+  //    return(true);
+  //  } 
   // 1st character in postcode is not "M" -non Manchester postcode
-  } else {
-      return(false);
-  }
+  //} else {
+ //     return(false);
+ // }
+  // reworked to a shorter alternative from feedback and help video
+  return person.address.postCode[0] === "M" 
+    && !isNaN(person.address.postCode[1])
 }
 
 module.exports = {
