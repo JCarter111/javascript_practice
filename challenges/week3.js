@@ -47,6 +47,28 @@ function camelCaseWords(words) {
 function getTotalSubjects(people) {
   if (!people) throw new Error("people is required");
   // Your code here!
+  // people is an array of person objects
+  // in each person object there is an array of subjects
+  // loop through each person element in the people array
+  // forEach
+  // loop through the subject array for the current person
+  // increment a counter for each subject in the subject array
+  // retain the counter value when moving to the next person
+  // in the people array
+  // nested forEach?
+  // find length of each subjects array
+  let iCounter = 0;
+  //let jCounter = 0;
+  people.forEach(function(element){
+    //iCounter = iCounter + 1;
+    //console.log (iCounter);
+    //element.subjects.forEach(function() { 
+    //  console.log(jCounter);
+    // jCounter = jCounter + 1
+   // });
+    iCounter = iCounter + element.subjects.length;
+  });
+  return iCounter
 }
 
 function checkIngredients(menu, ingredient) {
