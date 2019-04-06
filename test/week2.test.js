@@ -51,14 +51,14 @@ describe("isFromManchester", () => {
     };
     expect(isFromManchester(person)).toBe(false);
   });
-// additional tests
-// test for error message if person is undefined
+  // additional tests
+  // test for error message if person is undefined
   test("returns error message if undefined person", () => {
     expect(() => {
       isFromManchester();
     }).toThrow("person is required");
   });
-// test to make sure false returned if city property does not exist
+  // test to make sure false returned if city property does not exist
   test("function returns false if city property not defined", () => {
     const person = {
       name: "Percy",

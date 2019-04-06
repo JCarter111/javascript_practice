@@ -34,21 +34,21 @@ function getBusNumbers(people) {
   if (people === undefined) throw new Error("people is required");
   // Your code here!
   // check for multiples of 40
-// if the number of people is divisible
-// by 40 this will be the number of buses required
-// if the number of people is not exaclty divisible
-// by 40 need people/40 rounded to next highest number
-// e.g. 81/40 = 2.025
-// number of buses = 2 + 1
-// could use modulus operator to check for remainder
-// if there is a remainder add 1 to people/40
-// have kept code that I wrote to do this but had another idea
-// maths function to round up to nearest whole number
-// e.g. 81/40 = 2.025 round up to 3
-// e.g. 1094/40 = 27.35 round up to 28
-// Maths.ceil operator can do this
-if (isNaN(people)) throw new Error("number is required");
-return Math.ceil(people/40);
+  // if the number of people is divisible
+  // by 40 this will be the number of buses required
+  // if the number of people is not exaclty divisible
+  // by 40 need people/40 rounded to next highest number
+  // e.g. 81/40 = 2.025
+  // number of buses = 2 + 1
+  // could use modulus operator to check for remainder
+  // if there is a remainder add 1 to people/40
+  // have kept code that I wrote to do this but had another idea
+  // maths function to round up to nearest whole number
+  // e.g. 81/40 = 2.025 round up to 3
+  // e.g. 1094/40 = 27.35 round up to 28
+  // Maths.ceil operator can do this
+  if (isNaN(people)) throw new Error("number is required");
+  return Math.ceil(people / 40);
 }
 
 function countSheep(arr) {
@@ -64,12 +64,12 @@ function countSheep(arr) {
   let iSheepCounter = 0;
   //rework to use forEach following feedback on homework
   //arr.find(function(element) {
-  arr.forEach(function(element) {
-  if (element === "sheep") {
-    iSheepCounter = iSheepCounter + 1 ;
-  }
-})
-return iSheepCounter;
+  arr.forEach(function (element) {
+    if (element === "sheep") {
+      iSheepCounter = iSheepCounter + 1;
+    }
+  })
+  return iSheepCounter;
 }
 
 function hasMPostCode(person) {
@@ -86,22 +86,22 @@ function hasMPostCode(person) {
 
   // check for first letter in postcode being "M"
   //if (person.address.postCode.substr(0,1) === "M") {
-    // first letter in postcode is M, check whether 
-    // 2nd character in postcode is a number
-    
-   // if (isNaN(person.address.postCode.substr(1,1))) {
-      // second character is not a number - non Manchester postcode
-   //   return(false);
+  // first letter in postcode is M, check whether 
+  // 2nd character in postcode is a number
+
+  // if (isNaN(person.address.postCode.substr(1,1))) {
+  // second character is not a number - non Manchester postcode
+  //   return(false);
   //  } else {
-      // second character is a number - Manchester postcode
+  // second character is a number - Manchester postcode
   //    return(true);
   //  } 
   // 1st character in postcode is not "M" -non Manchester postcode
   //} else {
- //     return(false);
- // }
+  //     return(false);
+  // }
   // reworked to a shorter alternative from feedback and help video
-  return person.address.postCode[0] === "M" 
+  return person.address.postCode[0] === "M"
     && !isNaN(person.address.postCode[1])
 }
 

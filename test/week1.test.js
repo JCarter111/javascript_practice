@@ -29,8 +29,8 @@ describe("capitalize", () => {
   test("test empty string", () => {
     expect(capitalize("")).toBe("");
   });
-   // does function work if string with numbers at start is input
-   test("test number in first position of string", () => {
+  // does function work if string with numbers at start is input
+  test("test number in first position of string", () => {
     expect(capitalize("123 test")).toBe("123 test");
   });
   // does function work if string with quotation mark at start is input
@@ -41,13 +41,13 @@ describe("capitalize", () => {
   test("test non standard characters in first position of string", () => {
     expect(capitalize("£ test")).toBe("£ test");
   });
-    // does function produce error message if undefined word provided
-    //Note: need to wrap capitalize expected output into a function
-    // to avoid breaking the programme with the error test 
-   test("test error message if undefined word provided", () => {
-     expect(() => {
-       capitalize();
-   }).toThrow("word is required");
+  // does function produce error message if undefined word provided
+  //Note: need to wrap capitalize expected output into a function
+  // to avoid breaking the programme with the error test 
+  test("test error message if undefined word provided", () => {
+    expect(() => {
+      capitalize();
+    }).toThrow("word is required");
   });
 });
 
@@ -63,14 +63,14 @@ describe("generateInitials", () => {
   test("test error message if undefined firstname provided", () => {
     expect(() => {
       generateInitials();
-  }).toThrow("firstName is required");
- });
+    }).toThrow("firstName is required");
+  });
   // test undefined lastname
   test("test error message if undefined lastname provided", () => {
     expect(() => {
       generateInitials("Frederick");
-  }).toThrow("lastName is required");
- });
+    }).toThrow("lastName is required");
+  });
 });
 
 describe("addVAT", () => {
@@ -106,7 +106,7 @@ describe("getSalePrice", () => {
 
   test("reduces a price of 50 by 0%", () => {
     //test incorrect here
-   // expect(getSalePrice(50, 0)).toBe(0)
+    // expect(getSalePrice(50, 0)).toBe(0)
     expect(getSalePrice(50, 0)).toBe(50);
   });
   test("reduces a price of 50 by 100%", () => {
@@ -133,8 +133,8 @@ describe("getMiddleCharacter", () => {
   test("test undefined string", () => {
     expect(() => {
       getMiddleCharacter();
-  }).toThrow("str is required");
- });
+    }).toThrow("str is required");
+  });
 });
 
 describe("reverseWord", () => {
@@ -178,8 +178,8 @@ describe("reverseAllWords", () => {
   test("test error message if undefined array", () => {
     expect(() => {
       reverseAllWords();
-  }).toThrow("words is required");
- });
+    }).toThrow("words is required");
+  });
 });
 
 describe("countLinuxUsers", () => {
@@ -214,8 +214,8 @@ describe("countLinuxUsers", () => {
   test("test error message if undefined array", () => {
     expect(() => {
       countLinuxUsers();
-  }).toThrow("users is required");
- });
+    }).toThrow("users is required");
+  });
 });
 
 describe("getMeanScore", () => {
@@ -231,7 +231,7 @@ describe("getMeanScore", () => {
   // non-numeric values not included in mean calculation
   // numeric values included
   test.only("test non-numeric array", () => {
-    expect(getMeanScore([24, 44, "abc", "123","1Xq"])).toBe(34);
+    expect(getMeanScore([24, 44, "abc", "123", "1Xq"])).toBe(34);
   });
   // test no values input
   test.only("test no values", () => {

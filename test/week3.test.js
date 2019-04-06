@@ -6,7 +6,7 @@ const {
   duplicateNumbers
 } = require("../challenges/week3");
 
-describe("camelCaseWords", () => {
+describe.only("camelCaseWords", () => {
   test("camel cases a single word (i.e. no capital letter at beginning)", () => {
     expect(camelCaseWords(["my"])).toBe("my");
   });
@@ -22,6 +22,12 @@ describe("camelCaseWords", () => {
     expect(camelCaseWords(["is", "higher", "than", "min", "number"])).toBe(
       "isHigherThanMinNumber"
     );
+  });
+  // test for error message if no array of strings is provided
+  test("returns an error message if an array is not supplied", () => {
+    expect(() => {
+      camelCaseWords();
+    }).toThrow("words is required");
   });
 });
 
@@ -41,6 +47,12 @@ describe("getSquares", () => {
       4356,
       984064
     ]);
+  });
+  // test for error message if no array of numbers is provided
+  test("returns an error message if an array is not supplied", () => {
+    expect(() => {
+      getSquares();
+    }).toThrow("nums is required");
   });
 });
 
