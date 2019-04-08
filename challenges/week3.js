@@ -122,28 +122,48 @@ function duplicateNumbers(arr1, arr2) {
   if (!arr1) throw new Error("arr1 is required");
   if (!arr2) throw new Error("arr2 is required");
   // Your code here!
-  // 2 arrays to compare
+  // 2 arrays to compare arr1 and arr2
   // loop through arr1 values
   // check each arr1 value against all the 
   // values in arr2
   // any matching values need to be stored 
   // in a third array, arr3 and returned in 
   // this function
-  // try nested forEach loop?
-  // try nested for loops
+  // duplicate numbers must appear only once in the
+  // final array, arr3
+  // arr3 must be sorted so that the numbers are in
+  // arr3 in ascending numerical order
+  // try nested forEach loops or use for loops?
+  // try numeric sort method from MDN 
+  // or use slice, join and for loop to resort numbers
+  // in arr3?
   const arr3 = [];
   arr1.forEach(function(arr1Element) {
-    let strArr1Element = arr1Element;
     arr2.forEach(function (arr2Element) {
-      if (strArr1Element === arr2Element) {
-        // determine whether duplicate number
-        // already exists in arr3
-        arr3.push(arr1Element);
+      if (arr1Element === arr2Element) {
+        // duplicate number located -
+        // if the duplicate number does not 
+        // already exists in arr3, add the 
+        // duplicate number to arr3
+        // indexOf = -1 if the number does
+        // not already exist in arr3
+        if (arr3.indexOf(arr1Element) < 0) {
+          // number not already in arr3 
+            arr3.push(arr1Element);
+        }
       }
     });
   });
-  // return array containing duplicate numbers
-  return arr3;
+  // return array, arr3, contains the duplicate numbers
+  // this needs to be sorted in ascending numeric
+  // order if arr3.sort() was used this would sort in
+  // ASCII order e.g. [1,100,6,650,8]
+  // the sort method below sorts in numeric order
+  // longer hand version of this is:
+  // return arr3.sort(function(a,b) {
+  //   return a - b;
+  // });
+  return arr3.sort((aValue,bValue) => aValue - bValue)
 }
 
 module.exports = {
