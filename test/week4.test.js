@@ -16,6 +16,12 @@ describe("findSmallNums", () => {
     expect(findSmallNums([100, 88])).toEqual([]);
     expect(findSmallNums([])).toEqual([]);
   });
+  // test for error message if no array of numbers is provided
+  test("returns an error message if nums array is not supplied", () => {
+    expect(() => {
+      findSmallNums();
+    }).toThrow("nums is required");
+  });
 });
 
 describe("findNamesBeginningWith", () => {
@@ -28,6 +34,19 @@ describe("findNamesBeginningWith", () => {
     ]);
     expect(findNamesBeginningWith(names, "D")).toEqual(["Dave"]);
     expect(findNamesBeginningWith(names, "F")).toEqual([]);
+  });
+  // test for error message if no array of names is provided
+  test("returns an error message if names array is not supplied", () => {
+    expect(() => {
+      findNamesBeginningWith();
+    }).toThrow("names is required");
+  });
+  // test for error message if first letter to search for is not provided
+  test("returns an error message if first letter is not supplied", () => {
+    const names = ["Sally", "Dave", "Susan", "Geoff", "Riley", "Sam"];
+    expect(() => {
+      findNamesBeginningWith(names);
+    }).toThrow("char is required");
   });
 });
 
@@ -56,6 +75,12 @@ describe("findVerbs", () => {
     ];
     expect(findVerbs(words)).toEqual(["to eat", "to sneak", "to squeak"]);
   });
+  // test for error message if no array of verbs is provided
+  test("returns an error message if words array is not supplied", () => {
+    expect(() => {
+      findVerbs();
+    }).toThrow("words is required");
+  });
 });
 
 describe("getIntegers", () => {
@@ -64,6 +89,12 @@ describe("getIntegers", () => {
     expect(getIntegers(nums)).toEqual([1, 1, 4, 9]);
     expect(getIntegers([])).toEqual([]);
     expect(getIntegers([4.9, 9.33, 12.4])).toEqual([]);
+  });
+  // test for error message if no array of numbers is provided
+  test("returns an error message if numbers array is not supplied", () => {
+    expect(() => {
+      getIntegers();
+    }).toThrow("nums is required");
   });
 });
 
@@ -109,12 +140,24 @@ describe("getCities", () => {
     ];
     expect(getCities(users)).toEqual(["MCR", "LVP", "LVP", "GLW"]);
   });
+  // test for error message if no users array is provided
+  test("returns an error message if users array is not supplied", () => {
+    expect(() => {
+      getCities();
+    }).toThrow("users is required");
+  });
 });
 
 describe("getSquareRoots", () => {
   test("gets the square root of each number to 2 decimal places", () => {
     const nums = [36, 77, 12, 355, 92, 5];
     expect(getSquareRoots(nums)).toEqual([6, 8.77, 3.46, 18.84, 9.59, 2.24]);
+  });
+  // test for error message if no numbers array is provided
+  test("returns an error message if numbers array is not supplied", () => {
+    expect(() => {
+      getSquareRoots();
+    }).toThrow("nums is required");
   });
 });
 
@@ -152,6 +195,36 @@ describe("findSentencesContaining", () => {
       "It's best to map these additional items such as a test framework, which is not needed for running your project, in a devDependencies object"
     ]);
   });
+  // test that a sentence is only returned once if the same string
+  // occurs more than once in the sentence
+  // e.g sentence 
+  //"If you plan to publish your package, the most important things in 
+  // your package.json are the name and version fields as they will be required",
+  test("sentence containing repeated occurences of str should only be selected once", () => {
+    expect(
+      findSentencesContaining(sentencesAboutPackageJson, "package")
+    ).toEqual([
+      "You should specify a license for your package so that people know how they are permitted to use it",
+      "The 'scripts' property is a dictionary containing script commands that are run at various times in the lifecycle of your package",
+      "Dependencies are specified in a simple object that maps a package name to a version range",
+      "If you plan to publish your package, the most important things in your package.json are the name and version fields as they will be required",
+      "If you don’t plan to publish your package, the name and version fields are optional",
+      "Put keywords in it. It's an array of strings. This helps people discover your package as it's listed in npm search"
+    ]);
+  });
+  // test for error message if no array of names is provided
+  test("returns an error message if names array is not supplied", () => {
+    expect(() => {
+      findSentencesContaining();
+    }).toThrow("sentences is required");
+  });
+  // test for error message if no search string is provided
+  test("returns an error message if search string is not supplied", () => {
+    expect(() => {
+      findSentencesContaining(sentencesAboutPackageJson);
+    }).toThrow("str is required");
+  });
+
 });
 
 describe("getLongestSides", () => {
@@ -161,5 +234,11 @@ describe("getLongestSides", () => {
 
     const data2 = [[6, 7, 7], [9, 3, 9], [6, 3, 5], [6, 13, 12], [7, 12, 8]];
     expect(getLongestSides(data2)).toEqual([7, 9, 6, 13, 12]);
+  });
+  // test for error message if no array of triangles is provided
+  test("returns an error message if triangles array is not supplied", () => {
+    expect(() => {
+      getLongestSides();
+    }).toThrow("triangles is required");
   });
 });
