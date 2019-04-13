@@ -234,6 +234,10 @@ describe("getLongestSides", () => {
 
     const data2 = [[6, 7, 7], [9, 3, 9], [6, 3, 5], [6, 13, 12], [7, 12, 8]];
     expect(getLongestSides(data2)).toEqual([7, 9, 6, 13, 12]);
+    // test does the function work with non-integer values
+    // note: these have not been calculated to be real triangle values
+    const data3 = [[6, 7.2, 7], [9, 3, 9.08], [6, 3, 5.1], [6, 13, 12.078], [7, 12.09, 8]];
+    expect(getLongestSides(data3)).toEqual([7.2, 9.08, 6, 13, 12.09]);
   });
   // test for error message if no array of triangles is provided
   test("returns an error message if triangles array is not supplied", () => {
