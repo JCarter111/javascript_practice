@@ -11,11 +11,10 @@ function findSmallNums(nums) {
   const smallNums = nums.filter(function(numberItem) {
     // if a small number (<1) is located 
     // filter the number to the return array
-    if (numberItem < 1) {
-      return true;
-    } else {
-      return false;
-    }
+    // homework comments update - return result
+    // of numeric comparision, result is Boolean
+    // rather than having if...else statement here
+    return (numberItem < 1);
   });
   // return the small numbers array
   return smallNums;
@@ -41,11 +40,10 @@ function findNamesBeginningWith(names, char) {
    const matchNames = names.filter (function(nameItem) {
     // if the current name begins with char add the
     // name to the return array
-    if (nameItem.charAt(0) === char) {
-      return true;
-    } else {
-      return false;
-    }
+    // homework comments update - return result
+    // of character comparision, result is Boolean
+    // rather than having if...else statement here
+      return (nameItem.charAt(0) === char) 
   });
   // return array of names with first letter matching char
   return matchNames;
@@ -71,11 +69,10 @@ function findVerbs(words) {
   // search for "to " to avoid selecting strings starting 
   // with a first word such as "touch"
   const verbsArr = words.filter(function(wordItem) {
-    if (wordItem.startsWith("to ")) {
-      return true; 
-    } else {
-      return false;
-    }
+    // homework comments update - return result
+    // of string character comparision, result is Boolean
+    // rather than having if...else statement here
+    return (wordItem.startsWith("to "));
   });
   // return array of verbs
   return verbsArr;
@@ -96,11 +93,10 @@ function getIntegers(nums) {
   const intArr = nums.filter(function(numsItem) {
     // if an integer is located in nums[i]
     // add the integer to the return array
-    if (Number.isInteger(numsItem)) {
-      return true;
-    } else {
-      return false;
-    }
+    // homework comments update - return result
+    // of character comparision, result is Boolean
+    // rather than having if...else statement here
+    return (Number.isInteger(numsItem));
   });
   // return array of integers
   return intArr;
@@ -183,11 +179,10 @@ function findSentencesContaining(sentences, str) {
     // sentence to the return array
     // use filter function to select sentences in the
     // array
-    if (sentenceItem.toLowerCase().includes(str)) {
-      return true; 
-    } else {
-      return false;
-    }
+    // homework comments update - return result
+    // of string comparision, result is Boolean
+    // rather than having if...else statement here
+    return (sentenceItem.toLowerCase().includes(str));
   });
   // return the array of sentences with str in them
   return containsStrArr;
