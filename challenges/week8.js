@@ -79,16 +79,60 @@ const count1sand0s = str => {
 const reverseNumber = n => {
   if (n === undefined) throw new Error("n is required");
   // Your code here!
+  // number as input to the function
+  // could loop through number starting at the end and counting down
+  // or split into array
+  // might need to convert the reversed values
+  // back to a number
+  let numberSplit = parseInt(n.toString().split("").reverse().join(""));  
+  return numberSplit;
 };
 
 const sumArrays = arrs => {
   if (arrs === undefined) throw new Error("arrs is required");
   // Your code here!
+  // forEach loops nested
+  // one for outer array arrs
+  // one for each array within arrs
+  // add all the values together
+  // in variable used to store sum of
+  // all values
+  let iTotalSum = 0;
+  arrs.forEach(arrsItem =>  {
+    arrsItem.forEach(secondArrayItem =>  {
+        iTotalSum = iTotalSum + secondArrayItem;
+    });
+  });
+  return iTotalSum
 };
 
 const arrShift = arr => {
   if (arr === undefined) throw new Error("arr is required");
   // Your code here!
+  // if array length < 2
+  // no action required
+  // split array, 
+  // keep middle of array
+   // add first value to end of the new array
+  // use push
+  // add last value to start of the new array
+  // use unshift
+
+  // if the length of the array is 0,or 1
+  // there is no need to change the array
+  if (arr.length < 2) return arr;
+  // retain the middle values in the array arr
+  // by removing first and last values
+  const newArr = arr.slice(1,arr.length -1); 
+  // add the first value in the array, arr
+  // to the start of the new array
+    newArr.push(arr[0]);
+  // add the last value in array, arr to the
+  // start of the new array
+    newArr.unshift(arr[arr.length -1]);
+
+  // return the restructured array, newArr
+  return newArr;
 };
 
 const findNeedle = (haystack, searchTerm) => {

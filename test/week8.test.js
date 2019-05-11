@@ -42,7 +42,7 @@ describe("findNextNumber", () => {
   });
 });
 
-describe.only("count1sand0s", () => {
+describe("count1sand0s", () => {
   test("returns an object with the count of 1s and 0s in a string", () => {
     expect(count1sand0s("11000")).toEqual({
       1: 2,
@@ -64,7 +64,7 @@ describe.only("count1sand0s", () => {
       0: 1
     });
   });
-  // test for error message if no number, n is provided
+  // test for error message if no number,n, is provided
   test("returns an error message if no string is supplied", () => {
     expect(() => {
       count1sand0s();
@@ -79,6 +79,12 @@ describe("reverseNumber", () => {
     expect(reverseNumber(12345)).toBe(54321);
     expect(reverseNumber(100)).toBe(1); // No leading 0 necessary
   });
+  // test for error message if no number,n, is provided
+  test("returns an error message if no number is supplied", () => {
+    expect(() => {
+      reverseNumber();
+    }).toThrow("n is required");
+  });
 });
 
 describe("sumArrays", () => {
@@ -86,9 +92,15 @@ describe("sumArrays", () => {
     const arrs = [[1, 2, 3], [6, 3, 1], [1], [9, 10], [3, 5]];
     expect(sumArrays(arrs)).toBe(44);
   });
+  // test for error message if the input array, arrs, is not provided
+  test("returns an error message if no string is supplied", () => {
+    expect(() => {
+      sumArrays();
+    }).toThrow("arrs is required");
+  });
 });
 
-describe("arrShift", () => {
+describe.only("arrShift", () => {
   test("returns an array with the first and last items swapped", () => {
     expect(arrShift([1, 2])).toEqual([2, 1]);
     expect(arrShift([1, 2, 3])).toEqual([3, 2, 1]);
@@ -98,6 +110,12 @@ describe("arrShift", () => {
   test("makes no difference when the array length is < 2", () => {
     expect(arrShift([1])).toEqual([1]);
     expect(arrShift([])).toEqual([]);
+  });
+  // test for error message if the input array, arr is not defined
+  test("returns an error message if no string is supplied", () => {
+    expect(() => {
+      arrShift();
+    }).toThrow("arr is required");
   });
 });
 
