@@ -47,6 +47,33 @@ const findNextNumber = (nums, n) => {
 const count1sand0s = str => {
   if (str === undefined) throw new Error("str is required");
   // Your code here!
+  // return an object with 2 elements
+  // 1 - number of one digits in the string
+  // 0 - number of zero digits in the string
+  // could split string into an array an use forEach
+  // or regular loop through string using charAt
+  // to test each character in the string
+  // for the presence of "1" or "0"
+  // have checked for both "1" or "0"
+  // without assuming that every digit in
+  // the string contains these values
+  // used forEach below to practice
+  // function arrow coding
+  
+  let iOneCounter = 0;
+  let iZeroCounter = 0;
+
+  // split the string into an array
+  // and test each element in the array
+  str.split("").forEach(item => {
+    if (item === "1") { 
+      iOneCounter += 1;
+    } else if (item === "0") {
+      iZeroCounter += 1;
+    }
+});
+  // return an object
+  return {1: iOneCounter, 0:iZeroCounter};
 };
 
 const reverseNumber = n => {

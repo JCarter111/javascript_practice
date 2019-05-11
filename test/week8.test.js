@@ -8,7 +8,7 @@ const {
   getWordFrequencies
 } = require("../challenges/week8");
 
-describe.only("findNextNumber", () => {
+describe("findNextNumber", () => {
   test("returns the next number after the given number in the array", () => {
     expect(findNextNumber([5, 3, 7, 8, 1, 10], 7)).toBe(8);
     expect(findNextNumber([5, 3, 7, 8, 1, 10], 1)).toBe(10);
@@ -26,9 +26,23 @@ describe.only("findNextNumber", () => {
   test("if the number is found in the final index position of the array, returns null", () => {
     expect(findNextNumber([5, 3, 7, 8, 1, 3, 10], 10)).toBe(null);
   });
+
+  // test for error message if no array of numbers is provided
+  test("returns an error message if nums array is not supplied", () => {
+    expect(() => {
+      findNextNumber();
+    }).toThrow("nums is required");
+  });
+
+  // test for error message if no number, n is provided
+  test("returns an error message if nums array is not supplied", () => {
+    expect(() => {
+      findNextNumber([5, 3, 7, 8, 1, 3, 10]);
+    }).toThrow("n is required");
+  });
 });
 
-describe("count1sand0s", () => {
+describe.only("count1sand0s", () => {
   test("returns an object with the count of 1s and 0s in a string", () => {
     expect(count1sand0s("11000")).toEqual({
       1: 2,
@@ -49,6 +63,12 @@ describe("count1sand0s", () => {
       1: 3,
       0: 1
     });
+  });
+  // test for error message if no number, n is provided
+  test("returns an error message if no string is supplied", () => {
+    expect(() => {
+      count1sand0s();
+    }).toThrow("str is required");
   });
 });
 
