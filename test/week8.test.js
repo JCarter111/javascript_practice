@@ -100,7 +100,7 @@ describe("sumArrays", () => {
   });
 });
 
-describe.only("arrShift", () => {
+describe("arrShift", () => {
   test("returns an array with the first and last items swapped", () => {
     expect(arrShift([1, 2])).toEqual([2, 1]);
     expect(arrShift([1, 2, 3])).toEqual([3, 2, 1]);
@@ -119,7 +119,7 @@ describe.only("arrShift", () => {
   });
 });
 
-describe("findNeedle", () => {
+describe.only("findNeedle", () => {
   test("returns true if any of the properties of an object contain the specified string", () => {
     const obj1 = {
       name: "LINNMON",
@@ -174,6 +174,25 @@ describe("findNeedle", () => {
     expect(findNeedle(obj1, "warrington")).toBe(true);
     expect(findNeedle(obj1, "linnmon")).toBe(true);
     expect(findNeedle(obj1, "Liverpool")).toBe(false);
+  });
+  // test for error message if the haystack object is not provided
+  test("returns an error message if no haystack object is provided", () => {
+    expect(() => {
+      findNeedle();
+    }).toThrow("haystack is required");
+  });
+  // test for error message if the search term is not provided
+  test("returns an error message if no search term string is supplied", () => {
+    const obj1 = {
+      name: "LINNMON",
+      description: "Small round table",
+      price: 31.89,
+      store: "Warrington",
+      code: 12872
+    };
+    expect(() => {
+      findNeedle(obj1);
+    }).toThrow("searchTerm is required");
   });
 });
 

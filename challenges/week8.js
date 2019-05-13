@@ -139,6 +139,40 @@ const findNeedle = (haystack, searchTerm) => {
   if (haystack === undefined) throw new Error("haystack is required");
   if (searchTerm === undefined) throw new Error("searchTerm is required");
   // Your code here!
+  // each object can have a different number of 
+  // properties and the name and data type 
+  // of the properties varies
+  // use for...in loop to loop through object
+  // checking for presence of the search term
+  // string in each property
+  // some properties are numbers or booleans - do not 
+  // need to check these for a string value
+  // and trying to convert these to lower case 
+  // causes errors
+  // could use .includes method to check
+  // for the presence of the search term string
+  // within each string object in haystack
+  // need to have non-case sensitive search
+  // convert each item and searchTerm to lowercase
+  // before using includes
+
+  // for...in loop to access each property in the haystack object
+  for (let key in haystack) {
+    // check that the property type is string
+    if (typeof (haystack[key]) === "string") {
+      // carry out a case-insensitive string comparison
+      // and return true if the search term is found within the string property
+      // initially used lowercase matching
+      // if (haystack[key].toLowerCase().includes(searchTerm.toLowerCase())) return true;
+      // decided to try case-insensitive pattern matching
+      // need to supply i as the flag in RegExp constructor
+       let patternTerm = new RegExp(searchTerm, "i")
+      if (patternTerm.test(haystack[key])) return true; 
+    }
+    
+  }
+  // the search term string has not been located, return false
+  return false;
 };
 
 const getWordFrequencies = str => {
