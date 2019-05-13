@@ -176,8 +176,55 @@ const findNeedle = (haystack, searchTerm) => {
 };
 
 const getWordFrequencies = str => {
-  if (str === undefined) throw new Error("str is required");
+  // could also generate error is empty string or
+  // string with only one space supplied
+  if (str === undefined || str === "" || str === " ") 
+  throw new Error("str is required");
+  //if (str === undefined) throw new Error("str is required");
   // Your code here!
+  // frequency of each word in the str rather
+  // than individual letters, not including spaces
+  // find each word in string
+  // use frequencies to calculate frequency
+  // of each word and return an object with these
+  // frequencies
+  // need to remove special characters from the
+  // string before calculating frequencies
+
+  // setup frequencies object
+  const frequencies = {};
+  
+  // remove any typical string punction such
+  // as ?,",", "." or ! by replacing with a blank
+  // str.replace(/[!,?.]/g,'')
+  // could add additional special characters to this
+  // method as required
+
+  // method used below uses a negative version of 
+  // replace - str.replace(/[^a-z ]/gi,'') to
+  // retain only alphabetical characters - both
+  // upper and lower case and spaces 
+  // i - case insensitive,
+  // g - carry out global match on string
+
+  // convert the string to lowercase
+  // and split the string into an array of words
+  
+  const eachWord = str.replace(/[^a-z ]/gi,'').toLowerCase().split(" ");
+  
+  // loop through eachWord array
+  for (let i=0; i< eachWord.length; i++) {
+    if (frequencies[eachWord[i]] === undefined) {
+      // first time a word is located
+      // setup new property with a count of one
+      frequencies[eachWord[i]] = 1;
+    } else {
+      // increase count if additional instances
+      // of a property are found in the array
+      frequencies[eachWord[i]] += 1;
+    }
+  }
+  return frequencies;
 };
 
 module.exports = {

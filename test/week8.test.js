@@ -119,7 +119,7 @@ describe("arrShift", () => {
   });
 });
 
-describe.only("findNeedle", () => {
+describe("findNeedle", () => {
   test("returns true if any of the properties of an object contain the specified string", () => {
     const obj1 = {
       name: "LINNMON",
@@ -196,7 +196,7 @@ describe.only("findNeedle", () => {
   });
 });
 
-describe("getWordFrequencies", () => {
+describe.only("getWordFrequencies", () => {
   test("returns the frequencies of each word in a string", () => {
     expect(getWordFrequencies("hello world")).toEqual({
       hello: 1,
@@ -234,5 +234,23 @@ describe("getWordFrequencies", () => {
       we: 1,
       here: 1
     });
+  });
+  // test for error message if the string, str is not provided
+  test("returns an error message if no string is provided", () => {
+    expect(() => {
+      getWordFrequencies();
+    }).toThrow("str is required");
+  });
+  // test for error message if an empty str is not provided
+  test("returns an error message if empty string is provided", () => {
+    expect(() => {
+      getWordFrequencies("");
+    }).toThrow("str is required");
+  });
+  // test for error message if a string with just one space is provided
+  test("returns an error message if empty string is provided", () => {
+    expect(() => {
+      getWordFrequencies(" ");
+    }).toThrow("str is required");
   });
 });
