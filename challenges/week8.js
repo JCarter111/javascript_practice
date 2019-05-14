@@ -59,7 +59,13 @@ const count1sand0s = str => {
   // the string contains these values
   // used forEach below to practice
   // function arrow coding
-  
+  // Note: this method works better than
+  // creating frequency object in this
+  // case because we still need to count
+  // the 0 and 1 values even in a string
+  // containing all 0s or all 1s
+  // e.g. "111111", frequency method would
+  // not include property 0 : 0 in the returned object
   let iOneCounter = 0;
   let iZeroCounter = 0;
 
@@ -71,9 +77,11 @@ const count1sand0s = str => {
     } else if (item === "0") {
       iZeroCounter += 1;
     }
-});
+   });
+
   // return an object
   return {1: iOneCounter, 0:iZeroCounter};
+
 };
 
 const reverseNumber = n => {
@@ -91,16 +99,19 @@ const reverseNumber = n => {
 const sumArrays = arrs => {
   if (arrs === undefined) throw new Error("arrs is required");
   // Your code here!
+  // return the total of the numbers in array, arrs
+  // this may contain nested arrays
   // forEach loops nested
   // one for outer array arrs
   // one for each array within arrs
+  // using => notation
   // add all the values together
   // in variable used to store sum of
   // all values
   let iTotalSum = 0;
   arrs.forEach(arrsItem =>  {
     arrsItem.forEach(secondArrayItem =>  {
-        iTotalSum = iTotalSum + secondArrayItem;
+        iTotalSum += secondArrayItem;
     });
   });
   return iTotalSum
@@ -113,7 +124,7 @@ const arrShift = arr => {
   // no action required
   // split array, 
   // keep middle of array
-   // add first value to end of the new array
+  // add first value to end of the new array
   // use push
   // add last value to start of the new array
   // use unshift
@@ -123,9 +134,17 @@ const arrShift = arr => {
   if (arr.length < 2) return arr;
   // retain the middle values in the array arr
   // by removing first and last values
-  const newArr = arr.slice(1,arr.length -1); 
+  
+  // using array filter to extract the centre
+  // of the array (without the start and end values)
+  // this can also be achieved using slice method
+  // but using filter to
+  // practice using => function notation
+  // and implicit return
+  const newArr = arr.filter((item, index)=> 
+      (index !==0  && index !== arr.length-1));
   // add the first value in the array, arr
-  // to the start of the new array
+  // to the start of the new arrayS
     newArr.push(arr[0]);
   // add the last value in array, arr to the
   // start of the new array
@@ -212,18 +231,15 @@ const getWordFrequencies = str => {
   
   const eachWord = str.replace(/[^a-z ]/gi,'').toLowerCase().split(" ");
   
-  // loop through eachWord array
-  for (let i=0; i< eachWord.length; i++) {
-    if (frequencies[eachWord[i]] === undefined) {
-      // first time a word is located
-      // setup new property with a count of one
-      frequencies[eachWord[i]] = 1;
+  // forEach to loop through eachWord array
+  // using => function notation
+  eachWord.forEach(item => {
+    if (frequencies[item] === undefined) {
+      frequencies[item] = 1;
     } else {
-      // increase count if additional instances
-      // of a property are found in the array
-      frequencies[eachWord[i]] += 1;
+      frequencies[item] += 1;
     }
-  }
+  });
   return frequencies;
 };
 

@@ -92,6 +92,11 @@ describe("sumArrays", () => {
     const arrs = [[1, 2, 3], [6, 3, 1], [1], [9, 10], [3, 5]];
     expect(sumArrays(arrs)).toBe(44);
   });
+  // test empty sub arrays
+  test("returns the total of the numbers in all sub arrays, handles empty sub arrays", () => {
+    const arrs = [[], [6, 3, 1], [1], [],[9, 10], []];
+    expect(sumArrays(arrs)).toBe(30);
+  });
   // test for error message if the input array, arrs, is not provided
   test("returns an error message if no string is supplied", () => {
     expect(() => {
@@ -196,7 +201,7 @@ describe("findNeedle", () => {
   });
 });
 
-describe.only("getWordFrequencies", () => {
+describe("getWordFrequencies", () => {
   test("returns the frequencies of each word in a string", () => {
     expect(getWordFrequencies("hello world")).toEqual({
       hello: 1,
@@ -248,7 +253,7 @@ describe.only("getWordFrequencies", () => {
     }).toThrow("str is required");
   });
   // test for error message if a string with just one space is provided
-  test("returns an error message if empty string is provided", () => {
+  test("returns an error message if string with just one space provided", () => {
     expect(() => {
       getWordFrequencies(" ");
     }).toThrow("str is required");
