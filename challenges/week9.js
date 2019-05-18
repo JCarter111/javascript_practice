@@ -6,6 +6,25 @@
  */
 const sumMultiples = arr => {
   if (!arr) throw new Error("arr is required");
+  if (!Array.isArray(arr)) throw new Error("an array is required");
+  //loop through array - use forEach
+  // and test whether each value is divisible 
+  // by either 3 or 5
+  // if this is true add value to a variable
+  // which finds the total sum of the values
+
+  // this function returns a value of 0 if the
+  // array passed to the function is empty or
+  // contains no numbers divisible by either 
+  // 3 or 5.
+
+  // initially set sum of values divisible by 3 or 5 to zero
+  let sumThreeFive = 0;
+  arr.forEach(function(item){
+      if (item%3===0 || item%5===0) sumThreeFive += item;
+  });
+
+  return sumThreeFive;
 };
 
 /**
@@ -15,6 +34,20 @@ const sumMultiples = arr => {
  */
 const isValidDNA = str => {
   if (!str) throw new Error("str is required");
+  if (!str) throw new Error("str is required");
+  // loop through string, checking each string 
+  // character, if any character is located that
+  // is not equal to "C", "G", "T", "A"
+  // return false and exit the loop without
+  // checking any further string contents
+  // if the whole loop of the string length
+  // is completed without returning false,
+  // return true as the string must only contain
+  // "C", "G", "T", "A"
+  for (let i=0; i<str.length;i++){
+    if (str[i]!=="C" && str[i]!=="G"&& str[i]!=="T"&& str[i]!=="A") return false;
+  }
+  return true;
 };
 
 /**
@@ -66,6 +99,9 @@ const createMatrix = (n, fill) => {
 const areWeCovered = (staff, day) => {
   if (!staff) throw new Error("staff is required");
   if (!day) throw new Error("day is required");
+  if (staff.length===0) {
+    return false;
+  }
 };
 
 module.exports = {
