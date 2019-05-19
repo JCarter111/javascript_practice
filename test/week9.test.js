@@ -1,6 +1,8 @@
 const {
     sumMultiples, 
     isValidDNA,
+    getComplementaryDNA,
+    isItPrime,
     createMatrix,
     areWeCovered
 }
@@ -47,8 +49,104 @@ describe("sumMultiples",() =>{
     });
 });
 describe("isValidDNA",() =>{
-    test("returns an array of 3 elements, each with 3 values containing 'foo' fill value",  () =>{ 
-       
+    test("returns true if a string containing only G,T,C,A characters is supplied",  () =>{ 
+       // try toBeFalsy()?
+        expect(isValidDNA("G")).toBe(true);
+        expect(isValidDNA("T")).toBe(true);
+        expect(isValidDNA("C")).toBe(true);
+        expect(isValidDNA("A")).toBe(true);
+        expect(isValidDNA("GTCA")).toBe(true);
+        expect(isValidDNA("CTGTCAACGTA")).toBe(true);
+    });
+    
+    test("returns false if a string containing characters that are not G,T,C,A is supplied",  () =>{ 
+        expect(isValidDNA("RCYUIA")).toBe(false);
+        expect(isValidDNA("G1RTY")).toBe(false);
+        expect(isValidDNA(" ")).toBe(false);
+    });
+    test("returns false if the string contains only lowercase g,t,c,a",  () =>{ 
+        expect(isValidDNA("cttaaagg")).toBe(false);
+    });
+    // test error messages
+    test(
+        "returns an error message if str is not supplied, empty string supplied or a string variable is not supplied"
+        , () => {
+        expect(() => {
+        isValidDNA();
+        }).toThrow("str is required");
+        expect(() => {
+            isValidDNA("");
+            }).toThrow("str is required");
+        expect(() => {
+            isValidDNA(35);
+            }).toThrow("a string is required");
+    });
+});
+describe("getComplementaryDNA",() =>{
+    test("returns complementary DNA base string",  () =>{ 
+        expect(getComplementaryDNA("G")).toBe("C");
+        expect(getComplementaryDNA("T")).toBe("A");
+        expect(getComplementaryDNA("C")).toBe("G");
+        expect(getComplementaryDNA("A")).toBe("T");
+        expect(getComplementaryDNA("GTCA")).toBe("CAGT");
+        expect(getComplementaryDNA("CTGTCAACGTA")).toBe("GACAGTTGCAT");
+    });
+    
+    // test error messages
+    test(
+        "returns an error message if str does not contain a valid DNA sequence"
+        , () => {
+        expect(() => {
+            getComplementaryDNA("bATGc");
+        }).toThrow("valid DNA sequence is required");
+        expect(() => {
+            getComplementaryDNA("gataccgtaa");
+            }).toThrow("valid DNA sequence is required");
+        expect(() => {
+            getComplementaryDNA();
+            }).toThrow("str is required");
+        expect(() => {
+            getComplementaryDNA("");
+            }).toThrow("str is required");
+        expect(() => {
+            getComplementaryDNA(35);
+            }).toThrow("a string is required");
+    });
+});
+describe("isItPrime",() =>{
+    test("returns false n is less than one or n is not an integer or both",  () =>{ 
+        expect(isItPrime(1)).toBe(false);
+        expect(isItPrime(-2)).toBe(false);
+        expect(isItPrime(2.3)).toBe(false);
+        expect(isItPrime(-32.7)).toBe(false);
+    });
+    test("returns true if n is a prime number",  () =>{ 
+        expect(isItPrime(2)).toBe(true);
+        expect(isItPrime(17)).toBe(true);
+        expect(isItPrime(31)).toBe(true);
+        expect(isItPrime(345143)).toBe(true);
+    });
+    test("returns false if n is not a prime number",  () =>{ 
+        expect(isItPrime(1)).toBe(false);
+        expect(isItPrime(12)).toBe(false);
+        expect(isItPrime(225)).toBe(false);
+        expect(isItPrime(345147)).toBe(false);
+    });
+    // test error message generation
+    test(
+        "returns an error message if n is not supplied, or n is not a number"
+        , () => {
+        expect(() => {
+        isItPrime();
+        }).toThrow("n is required");
+        expect(() => {
+            // check why this error message
+            const booleanTest = false;
+            isItPrime(booleanTest);
+            }).toThrow("n is required");
+        expect(() => {
+            isItPrime("4");
+            }).toThrow("a number is required");
     });
 });
 describe("createMatrix",() =>{

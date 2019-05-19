@@ -6,6 +6,8 @@
  */
 const sumMultiples = arr => {
   if (!arr) throw new Error("arr is required");
+  // check variable type of arr, if arr is not an array
+  // create an error message
   if (!Array.isArray(arr)) throw new Error("an array is required");
   //loop through array - use forEach
   // and test whether each value is divisible 
@@ -34,7 +36,7 @@ const sumMultiples = arr => {
  */
 const isValidDNA = str => {
   if (!str) throw new Error("str is required");
-  if (!str) throw new Error("str is required");
+  if (typeof str !=="string") throw new Error("a string is required");
   // loop through string, checking each string 
   // character, if any character is located that
   // is not equal to "C", "G", "T", "A"
@@ -44,8 +46,10 @@ const isValidDNA = str => {
   // is completed without returning false,
   // return true as the string must only contain
   // "C", "G", "T", "A"
+  // these letters must be in uppercase
   for (let i=0; i<str.length;i++){
-    if (str[i]!=="C" && str[i]!=="G"&& str[i]!=="T"&& str[i]!=="A") return false;
+    if (str.charAt(i)!=="C" && str.charAt(i)!=="G"&& 
+      str.charAt(i)!=="T"&& str.charAt(i)!=="A") return false;
   }
   return true;
 };
@@ -57,6 +61,35 @@ const isValidDNA = str => {
  */
 const getComplementaryDNA = str => {
   if (!str) throw new Error("str is required");
+  if (typeof str !=="string") throw new Error("a string is required");
+  //call isValidDNA to validate the str
+  // if the string is not a valid DNA sequence
+  // show an error message and exit this function
+  if(!isValidDNA(str)) throw new Error("valid DNA sequence is required");
+  // initialise string to contain complimentary
+  // DNA base sequence
+  let strComplementaryDNA = "";
+  // loop through DNA string
+  str.split("").forEach(item => {
+    // use switch to replace each
+    // character with the complimentary base
+    switch (item) {
+      case "G":
+        strComplementaryDNA += "C";
+        break;
+      case "C":
+        strComplementaryDNA += "G";
+        break;
+      case "T":
+        strComplementaryDNA += "A";
+        break;
+      case "A":
+        strComplementaryDNA += "T";
+        break;
+    }
+  });
+  //return the complimentary DNA base string
+  return strComplementaryDNA;
 };
 
 /**
@@ -65,7 +98,30 @@ const getComplementaryDNA = str => {
  * @returns {Boolean}
  */
 const isItPrime = n => {
+  // return an error message if n is not provided
   if (!n) throw new Error("n is required");
+  // return an error message if n is not a number
+  if (typeof n !=="number") throw new Error("a number is required");
+  // prime numbers are always positive, integer values
+  // that are greater than 1
+  // return false if n is one or not a positive value
+  // return false if n is not an integer
+  if (n<=1 || !Number.isInteger(n)) return false;
+  // a prime number is only divisible by 1 and by itself
+  // loop through all numbers from 2 up to n - 1,
+  // checking whether n is divisible by any of these 
+  // numbers
+  // if n is divisible by any number in the loop, return
+  // false and exit the loop after the first number
+  // that n is divisible by is located
+  for (let i=2;i<n;i++){
+    if (n%i===0) return false;
+  }
+  // end of the loop reached, return true
+  // n must be a prime number to reach this stage
+  // if n = 2 the loop above is not executed and 
+  // true is returned below
+  return true;
 };
 
 /**
