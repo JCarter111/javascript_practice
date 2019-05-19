@@ -136,8 +136,30 @@ const isItPrime = n => {
  * @returns {Array}
  */
 const createMatrix = (n, fill) => {
+  // create an error message if n is not supplied
   if (!n) throw new Error("n is required");
+  // create an error message if fill is not supplied
   if (!fill) throw new Error("fill is required");
+  // create an error message if n is not a number
+  if (typeof n !=="number") throw new Error("a number is required");
+  // initialise a return array, arrMatrix
+  const arrMatrix = [];
+  // initialise an array to hold each element in arrMatrix
+  const arrElement = [];
+  // create an array containing each array element
+  // this contains fill, n times
+  // fill can be any variable type
+  // string, number, object, boolean
+  for (let i=0; i<n; i++) {
+    arrElement.push(fill);
+  }
+  // add arrElement to the main array, arrMatrix
+  // n times
+  for (let i=0; i<n; i++){
+      arrMatrix.push(arrElement);
+  }
+  // return the final array
+  return arrMatrix;
 };
 
 /**
@@ -155,9 +177,40 @@ const createMatrix = (n, fill) => {
 const areWeCovered = (staff, day) => {
   if (!staff) throw new Error("staff is required");
   if (!day) throw new Error("day is required");
-  if (staff.length===0) {
-    return false;
-  }
+  // check variable type of staff, if staff is not an array
+  // create an error message
+  if (!Array.isArray(staff)) throw new Error("a staff array is required");
+  // check the variable type of day
+  // create an error message if the type is not string
+  if (typeof day !=="string") throw new Error("a day string is required");
+  // if there are less than 3 staff in staff
+  // return false because there will never be
+  // enough staff to provide full cover on any day
+  if (staff.length <3) return false;
+  // loop through the staff array checking whether
+  // day is in the rota of each staff member
+  // count total number of times that day is located
+
+  // possibly also count total number of staff to 
+  // ensure that there are 3 or more staff
+  // avoids error if one member of staff had the same
+  // day twice in their rota
+  let iCoverLocated = 0;
+  //const staffFrequencies = {};
+
+  staff.forEach(item =>{
+    item.rota.forEach(rotaItem =>{
+      if (rotaItem === day) {
+        iCoverLocated += 1;
+       // if (staffFrequencies[item.name] === undefined) {
+       //   staffFrequencies[item.name]= 1;
+       // } else {
+       //   staffFrequencies[item.name] +=1;
+       // }
+      }
+    });
+  });
+  return (iCoverLocated >= 3);
 };
 
 module.exports = {

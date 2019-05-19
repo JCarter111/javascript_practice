@@ -153,13 +153,78 @@ describe("createMatrix",() =>{
     // example of using toEqual to check returned array contents
     test("returns an array of 3 elements, each with 3 values containing 'foo' fill value",  () =>{ 
         expect(createMatrix(3,"foo")).toEqual(
-            [["foo","foo","foo"],
-            ["foo","foo","foo"],
-            ["foo","foo","foo"]]
+            [
+                ["foo","foo","foo"],
+                ["foo","foo","foo"],
+                ["foo","foo","foo"]
+            ]
             );
     });
+    test("returns an array of 4 elements, each with 4 values containing number 37 fill value",  () =>{ 
+        expect(createMatrix(4,37)).toEqual(
+            [
+                [37,37,37,37],
+                [37,37,37,37],
+                [37,37,37,37],
+                [37,37,37,37]
+            ]
+            );
+    });
+    test("returns an array of 2 elements, each with 2 values containing object fill value",  () =>{ 
+        expect(createMatrix(2,{name: "John", id:67})).toEqual(
+            [
+                [{name: "John", id:67},{name: "John", id:67}],
+                [{name: "John", id:67},{name: "John", id:67}]
+            ]
+            );
+    });
+    test("returns an array of 4 elements, each with 4 values containing number 37 fill value",  () =>{ 
+        expect(createMatrix(4,[1,"pigeon"])).toEqual(
+            [
+                [[1,"pigeon"],[1,"pigeon"],[1,"pigeon"],[1,"pigeon"]],
+                [[1,"pigeon"],[1,"pigeon"],[1,"pigeon"],[1,"pigeon"]],
+                [[1,"pigeon"],[1,"pigeon"],[1,"pigeon"],[1,"pigeon"]],              
+                [[1,"pigeon"],[1,"pigeon"],[1,"pigeon"],[1,"pigeon"]]
+            ]
+            );
+            expect(createMatrix(5,true)).toEqual(
+                [
+                    [true, true, true, true, true],
+                    [true, true, true, true, true],
+                    [true, true, true, true, true],              
+                    [true, true, true, true, true],
+                    [true, true, true, true, true]
+                ]
+                );
+                expect(createMatrix(2," ")).toEqual(
+                    [
+                        [" "," "],
+                        [" "," "]
+                    ]
+                    );    
+    });
+    // test error messages
+    test(
+        "returns an error message if n is not supplied"
+        , () => {
+        expect(() => {
+            createMatrix();
+        }).toThrow("n is required");
+        expect(() => {
+            createMatrix(0);
+        }).toThrow("n is required");
+        expect(() => {
+            createMatrix(3);
+            }).toThrow("fill is required");
+        expect(() => {
+            createMatrix(3,"");
+            }).toThrow("fill is required");
+        expect(() => {
+            createMatrix(3,0);
+            }).toThrow("fill is required");
+    });
 });
-describe("areWeCovered",() =>{
+describe.only("areWeCovered",() =>{
     test("it returns false if there are no staff at all",  () =>{ 
         expect(areWeCovered([],"Sunday")).toBe(false);
         expect(areWeCovered([],"Monday")).toBe(false);
@@ -173,7 +238,7 @@ describe("areWeCovered",() =>{
         const staff = [
             { name: "Sally", rota: ["Monday", "Tuesday", "Friday"] },
             { name: "Pedro", rota: ["Saturday", "Sunday", "Tuesday"] },
-        ]
+        ];
         expect(areWeCovered(staff,"Monday")).toBe(false);
         expect(areWeCovered(staff,"Tuesday")).toBe(false);
     });
@@ -182,29 +247,53 @@ describe("areWeCovered",() =>{
             { name: "Sally", rota: ["Monday", "Tuesday", "Friday"] },
             { name: "Pedro", rota: ["Saturday", "Sunday", "Tuesday"] },
             { name: "Chloe", rota: ["Saturday"]}
-        ]
+        ];
         expect(areWeCovered(staff,"Wednesday")).toBe(false);
         expect(areWeCovered(staff,"Thursday")).toBe(false);
     });
-    test("returns true if there are 3 staff working but only on the day that all the staff are working",  () =>{ 
+    test("returns true if there are 3 staff working but only on the day that 3 of the staff are working",  () =>{ 
         const staff = [
             { name: "Sally", rota: ["Monday", "Tuesday", "Friday","Saturday"]},
             { name: "Pedro", rota: ["Saturday", "Sunday", "Tuesday"] },
             { name: "Chloe", rota: ["Saturday"]},
             { name: "Patrick", rota: ["Monday", "Friday"]}
-        ]
+        ];
         expect(areWeCovered(staff,"Saturday")).toBe(true);
         expect(areWeCovered(staff,"Tuesday")).toBe(false);
     });
-    test("returns true if there are 4 staff working but only on the day that all the staff are working",  () =>{ 
+    test("returns true if there are 4 staff working but only on the day that 4 of the staff are working",  () =>{ 
         const staff = [
             { name: "Sally", rota: ["Monday", "Tuesday", "Friday","Saturday"]},
             { name: "Pedro", rota: ["Saturday", "Sunday", "Tuesday"] },
             { name: "Chloe", rota: ["Saturday"]},
             { name: "Patrick", rota: ["Monday", "Friday"]},
             { name: "Tahir", rota: ["Monday", "Saturday"]}
-        ]
+        ];
         expect(areWeCovered(staff,"Saturday")).toBe(true);
         expect(areWeCovered(staff,"Tuesday")).toBe(false);
+    });
+    // test error messages
+    test(
+        "returns an error message if n is not supplied"
+        , () => {
+            const staff = [
+                { name: "Sally", rota: ["Monday", "Tuesday", "Friday","Saturday"]},
+                { name: "Pedro", rota: ["Saturday", "Sunday", "Tuesday"] },
+                { name: "Chloe", rota: ["Saturday"]},
+                { name: "Patrick", rota: ["Monday", "Friday"]}
+            ];
+        expect(() => {
+            areWeCovered();
+        }).toThrow("staff is required");
+        
+        expect(() => {
+            areWeCovered(staff);
+        }).toThrow("day is required");
+        expect(() => {
+            areWeCovered(3,"Tuesday");
+            }).toThrow("a staff array is required");
+        expect(() => {
+            areWeCovered(staff,true);
+            }).toThrow("a day string is required");
     });
 });
