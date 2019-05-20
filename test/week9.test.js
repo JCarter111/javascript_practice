@@ -35,7 +35,7 @@ describe("sumMultiples",() =>{
     // 2. test for error message if an invalid variable type is 
     // passed to the function, instead of an array
     test(
-        "returns an error message if array, arr, is not supplied or an variable is supplied that is not an array"
+        "returns an error message if array, arr, is not supplied or a variable is supplied that is not an array"
         , () => {
         expect(() => {
         sumMultiples();
@@ -50,22 +50,25 @@ describe("sumMultiples",() =>{
 });
 describe("isValidDNA",() =>{
     test("returns true if a string containing only G,T,C,A characters is supplied",  () =>{ 
-       // try toBeFalsy()?
-        expect(isValidDNA("G")).toBe(true);
-        expect(isValidDNA("T")).toBe(true);
-        expect(isValidDNA("C")).toBe(true);
-        expect(isValidDNA("A")).toBe(true);
-        expect(isValidDNA("GTCA")).toBe(true);
-        expect(isValidDNA("CTGTCAACGTA")).toBe(true);
+       // tried using toBeTruthy instead of toBe(true), which can also be used
+        expect(isValidDNA("G")).toBeTruthy();
+        expect(isValidDNA("T")).toBeTruthy();
+        expect(isValidDNA("C")).toBeTruthy();
+        expect(isValidDNA("A")).toBeTruthy();
+        expect(isValidDNA("GTCA")).toBeTruthy();
+        expect(isValidDNA("CTGTCAACGTA")).toBeTruthy();
     });
     
     test("returns false if a string containing characters that are not G,T,C,A is supplied",  () =>{ 
-        expect(isValidDNA("RCYUIA")).toBe(false);
-        expect(isValidDNA("G1RTY")).toBe(false);
-        expect(isValidDNA(" ")).toBe(false);
+        // tried using toBeTruthy instead of toBe(false), which can also be used
+        expect(isValidDNA("P")).toBeFalsy();
+        expect(isValidDNA("RCYUIA")).toBeFalsy();
+        expect(isValidDNA("G1RTY")).toBeFalsy();
+        expect(isValidDNA("G!TTCA")).toBeFalsy();
+        expect(isValidDNA(" ")).toBeFalsy();
     });
     test("returns false if the string contains only lowercase g,t,c,a",  () =>{ 
-        expect(isValidDNA("cttaaagg")).toBe(false);
+        expect(isValidDNA("cttaaagg")).toBeFalsy();
     });
     // test error messages
     test(
@@ -74,11 +77,17 @@ describe("isValidDNA",() =>{
         expect(() => {
         isValidDNA();
         }).toThrow("str is required");
+        // empty string not allowed in the function
+        // empty string generates error message "str is required"
+        // returns false in !str code
         expect(() => {
             isValidDNA("");
             }).toThrow("str is required");
         expect(() => {
             isValidDNA(35);
+            }).toThrow("a string is required");
+        expect(() => {
+            isValidDNA({name: "Jane", id: 342});
             }).toThrow("a string is required");
     });
 });
@@ -100,11 +109,11 @@ describe("getComplementaryDNA",() =>{
             getComplementaryDNA("bATGc");
         }).toThrow("valid DNA sequence is required");
         expect(() => {
-            getComplementaryDNA("gataccgtaa");
-            }).toThrow("valid DNA sequence is required");
-        expect(() => {
             getComplementaryDNA();
             }).toThrow("str is required");
+        // empty string not allowed in the function
+        // empty string generates error message "str is required"
+        // returns false in !str code
         expect(() => {
             getComplementaryDNA("");
             }).toThrow("str is required");
@@ -112,25 +121,37 @@ describe("getComplementaryDNA",() =>{
             getComplementaryDNA(35);
             }).toThrow("a string is required");
     });
+    test(
+        "returns an error message if DNA sequence is in lower case"
+        , () => {
+        expect(() => {
+            // validation of DNA string is case sensitive
+            getComplementaryDNA("gataccgtaa");
+            }).toThrow("valid DNA sequence is required");
+    });
 });
 describe("isItPrime",() =>{
     test("returns false n is less than one or n is not an integer or both",  () =>{ 
-        expect(isItPrime(1)).toBe(false);
-        expect(isItPrime(-2)).toBe(false);
-        expect(isItPrime(2.3)).toBe(false);
-        expect(isItPrime(-32.7)).toBe(false);
+        // used toBeFalsy() instead of toBe(false), both tests work
+        expect(isItPrime(0)).toBeFalsy();
+        expect(isItPrime(0.8)).toBeFalsy();
+        expect(isItPrime(1)).toBeFalsy();
+        expect(isItPrime(-2)).toBeFalsy();
+        expect(isItPrime(2.3)).toBeFalsy();
+        expect(isItPrime(-32.7)).toBeFalsy();
     });
     test("returns true if n is a prime number",  () =>{ 
-        expect(isItPrime(2)).toBe(true);
-        expect(isItPrime(17)).toBe(true);
-        expect(isItPrime(31)).toBe(true);
-        expect(isItPrime(345143)).toBe(true);
+        // used toBeThruthy() instead of toBe(true), both tests work
+        expect(isItPrime(2)).toBeTruthy();
+        expect(isItPrime(17)).toBeTruthy();
+        expect(isItPrime(31)).toBeTruthy();
+        expect(isItPrime(345143)).toBeTruthy();
     });
     test("returns false if n is not a prime number",  () =>{ 
-        expect(isItPrime(1)).toBe(false);
-        expect(isItPrime(12)).toBe(false);
-        expect(isItPrime(225)).toBe(false);
-        expect(isItPrime(345147)).toBe(false);
+        // used toBeFalsy() instead of toBe(false), both tests work
+        expect(isItPrime(12)).toBeFalsy();
+        expect(isItPrime(225)).toBeFalsy();
+        expect(isItPrime(345147)).toBeFalsy();
     });
     // test error message generation
     test(
@@ -138,12 +159,18 @@ describe("isItPrime",() =>{
         , () => {
         expect(() => {
         isItPrime();
-        }).toThrow("n is required");
+        }).toThrow("a number is required");
+        // pass boolean false value to the function
         expect(() => {
-            // check why this error message
-            const booleanTest = false;
-            isItPrime(booleanTest);
-            }).toThrow("n is required");
+            isItPrime(false);
+            }).toThrow("a number is required");
+
+        // pass boolean true value to the function
+        expect(() => {
+            isItPrime(true);
+            }).toThrow("a number is required");
+
+        // passing a string to the function
         expect(() => {
             isItPrime("4");
             }).toThrow("a number is required");
@@ -186,22 +213,46 @@ describe("createMatrix",() =>{
                 [[1,"pigeon"],[1,"pigeon"],[1,"pigeon"],[1,"pigeon"]],              
                 [[1,"pigeon"],[1,"pigeon"],[1,"pigeon"],[1,"pigeon"]]
             ]
-            );
-            expect(createMatrix(5,true)).toEqual(
-                [
-                    [true, true, true, true, true],
-                    [true, true, true, true, true],
-                    [true, true, true, true, true],              
-                    [true, true, true, true, true],
-                    [true, true, true, true, true]
-                ]
-                );
-                expect(createMatrix(2," ")).toEqual(
-                    [
-                        [" "," "],
-                        [" "," "]
-                    ]
-                    );    
+        );
+        expect(createMatrix(5,true)).toEqual(
+            [
+                [true, true, true, true, true],
+                [true, true, true, true, true],
+                [true, true, true, true, true],              
+                [true, true, true, true, true],
+                [true, true, true, true, true]
+            ]
+        );
+        expect(createMatrix(2," ")).toEqual(
+            [
+                [" "," "],
+                [" "," "]
+            ]
+        );
+    });  
+    test("returns an empty array if n=0",  () =>{ 
+        expect(createMatrix(0,"foo")).toEqual(
+            []
+        );     
+    });
+    test("returns an array of zeros if fill = 0",  () =>{ 
+        expect(createMatrix(4,0)).toEqual(
+            [
+                [0,0,0,0],
+                [0,0,0,0],
+                [0,0,0,0],
+                [0,0,0,0]
+            ]
+        );     
+    });
+    test("returns an array of empty strings if fill=''",  () =>{ 
+        expect(createMatrix(3,"")).toEqual(
+            [
+                ["","",""],
+                ["","",""],
+                ["","",""]
+            ]
+        );     
     });
     // test error messages
     test(
@@ -209,22 +260,16 @@ describe("createMatrix",() =>{
         , () => {
         expect(() => {
             createMatrix();
-        }).toThrow("n is required");
-        expect(() => {
-            createMatrix(0);
-        }).toThrow("n is required");
+        }).toThrow("a number is required");
         expect(() => {
             createMatrix(3);
             }).toThrow("fill is required");
         expect(() => {
-            createMatrix(3,"");
-            }).toThrow("fill is required");
-        expect(() => {
-            createMatrix(3,0);
+            createMatrix(3,null);
             }).toThrow("fill is required");
     });
 });
-describe.only("areWeCovered",() =>{
+describe("areWeCovered",() =>{
     test("it returns false if there are no staff at all",  () =>{ 
         expect(areWeCovered([],"Sunday")).toBe(false);
         expect(areWeCovered([],"Monday")).toBe(false);
@@ -251,7 +296,8 @@ describe.only("areWeCovered",() =>{
         expect(areWeCovered(staff,"Wednesday")).toBe(false);
         expect(areWeCovered(staff,"Thursday")).toBe(false);
     });
-    test("returns true if there are 3 staff working but only on the day that 3 of the staff are working",  () =>{ 
+    test("returns true if there are 3 staff working but only on the day that 3 of the staff are working"
+    ,  () =>{ 
         const staff = [
             { name: "Sally", rota: ["Monday", "Tuesday", "Friday","Saturday"]},
             { name: "Pedro", rota: ["Saturday", "Sunday", "Tuesday"] },
@@ -261,7 +307,8 @@ describe.only("areWeCovered",() =>{
         expect(areWeCovered(staff,"Saturday")).toBe(true);
         expect(areWeCovered(staff,"Tuesday")).toBe(false);
     });
-    test("returns true if there are 4 staff working but only on the day that 4 of the staff are working",  () =>{ 
+    test("returns true if there are 4 staff working but only on the day that 4 of the staff are working"
+    ,  () =>{ 
         const staff = [
             { name: "Sally", rota: ["Monday", "Tuesday", "Friday","Saturday"]},
             { name: "Pedro", rota: ["Saturday", "Sunday", "Tuesday"] },
@@ -272,13 +319,45 @@ describe.only("areWeCovered",() =>{
         expect(areWeCovered(staff,"Saturday")).toBe(true);
         expect(areWeCovered(staff,"Tuesday")).toBe(false);
     });
+    test("returns false if staff rotas are missing",  () =>{ 
+        const staff = [
+            { name: "Sally" },
+            { name: "Pedro"  },
+            { name: "Chloe" },
+            { name: "Patrick"},
+            { name: "Tahir"}
+        ];
+        expect(areWeCovered(staff,"Saturday")).toBe(false);
+    });
+    test("returns false if staff rotas empty",  () =>{ 
+        const staff = [
+            { name: "Sally",rota:[]},
+            { name: "Pedro", rota:[]},
+            { name: "Chloe", rota:[]},
+            { name: "Patrick", rota:[]},
+            { name: "Tahir", rota:[]}
+        ];
+        expect(areWeCovered(staff,"Saturday")).toBe(false);
+    });
+    test("returns correct value if some staff rotas are empty/missing but some have rotas"
+        ,  () =>{ 
+        const staff = [
+            { name: "Sally",rota:["Monday", "Tuesday", "Thursday","Friday"]},
+            { name: "Pedro", rota:[]},
+            { name: "Chloe", rota:["Thursday"]},
+            { name: "Patrick", },
+            { name: "Tahir", rota:["Monday", "Thursday"]}
+        ];
+        expect(areWeCovered(staff,"Thursday")).toBe(true);
+        expect(areWeCovered(staff, "Monday")).toBe(false);
+    });
     // test error messages
     test(
-        "returns an error message if n is not supplied"
+        "returns an error message if staff or day is not supplied"
         , () => {
             const staff = [
                 { name: "Sally", rota: ["Monday", "Tuesday", "Friday","Saturday"]},
-                { name: "Pedro", rota: ["Saturday", "Sunday", "Tuesday"] },
+                { name: "Pedro", rota: ["Saturday", "Sunday", "Tuesday"]},
                 { name: "Chloe", rota: ["Saturday"]},
                 { name: "Patrick", rota: ["Monday", "Friday"]}
             ];
@@ -289,11 +368,34 @@ describe.only("areWeCovered",() =>{
         expect(() => {
             areWeCovered(staff);
         }).toThrow("day is required");
+    });
+    test (
+        "returns an error message if invalid data types are provided for staff or day"
+        , () => {
+            const staff = [
+                { name: "Sally", rota: ["Monday", "Tuesday", "Friday","Saturday"]},
+                { name: "Pedro", rota: ["Saturday", "Sunday", "Tuesday"]},
+                { name: "Chloe", rota: ["Saturday"]},
+                { name: "Patrick", rota: ["Monday", "Friday"]}
+            ];
         expect(() => {
             areWeCovered(3,"Tuesday");
-            }).toThrow("a staff array is required");
+            }).toThrow("a staff array is required");          
         expect(() => {
             areWeCovered(staff,true);
             }).toThrow("a day string is required");
+    });
+    test(
+        "returns an error message if a blank day string is supplied"
+        , () => {
+            const staff = [
+                { name: "Sally", rota: ["Monday", "Tuesday","Friday","Saturday"]},
+                { name: "Pedro", rota: ["Saturday", "Sunday","Tuesday"] },
+                { name: "Chloe", rota: ["Saturday"]},
+                { name: "Patrick", rota: ["Monday", "Friday"]}
+            ];
+        expect(() => {
+            areWeCovered(staff,"");
+        }).toThrow("day is required");
     });
 });

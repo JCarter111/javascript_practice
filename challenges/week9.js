@@ -48,8 +48,8 @@ const isValidDNA = str => {
   // "C", "G", "T", "A"
   // these letters must be in uppercase
   for (let i=0; i<str.length;i++){
-    if (str.charAt(i)!=="C" && str.charAt(i)!=="G"&& 
-      str.charAt(i)!=="T"&& str.charAt(i)!=="A") return false;
+    if (str.charAt(i)!=="C" && str.charAt(i)!=="G" && 
+      str.charAt(i)!=="T" && str.charAt(i)!=="A") return false;
   }
   return true;
 };
@@ -62,7 +62,7 @@ const isValidDNA = str => {
 const getComplementaryDNA = str => {
   if (!str) throw new Error("str is required");
   if (typeof str !=="string") throw new Error("a string is required");
-  //call isValidDNA to validate the str
+  // call isValidDNA to validate the str
   // if the string is not a valid DNA sequence
   // show an error message and exit this function
   if(!isValidDNA(str)) throw new Error("valid DNA sequence is required");
@@ -73,6 +73,7 @@ const getComplementaryDNA = str => {
   str.split("").forEach(item => {
     // use switch to replace each
     // character with the complimentary base
+    // complimentary base returned in uppercase
     switch (item) {
       case "G":
         strComplementaryDNA += "C";
@@ -99,8 +100,10 @@ const getComplementaryDNA = str => {
  */
 const isItPrime = n => {
   // return an error message if n is not provided
-  if (!n) throw new Error("n is required");
-  // return an error message if n is not a number
+  // changed error handling
+  // return an error message if n is not provided or n is not a number
+  // using this check instead of if (!n) allows a value of n=0 to
+  // be supplied to the function
   if (typeof n !=="number") throw new Error("a number is required");
   // prime numbers are always positive, integer values
   // that are greater than 1
@@ -136,12 +139,14 @@ const isItPrime = n => {
  * @returns {Array}
  */
 const createMatrix = (n, fill) => {
-  // create an error message if n is not supplied
-  if (!n) throw new Error("n is required");
-  // create an error message if fill is not supplied
-  if (!fill) throw new Error("fill is required");
-  // create an error message if n is not a number
+  // create an error message if n is not supplied or
+  // if n is not a number
   if (typeof n !=="number") throw new Error("a number is required");
+  
+  // create an error message if fill is not supplied
+  // or null values supplied
+  if (fill===undefined || fill===null) throw new Error("fill is required");
+  
   // initialise a return array, arrMatrix
   const arrMatrix = [];
   // initialise an array to hold each element in arrMatrix
@@ -191,25 +196,25 @@ const areWeCovered = (staff, day) => {
   // day is in the rota of each staff member
   // count total number of times that day is located
 
-  // possibly also count total number of staff to 
-  // ensure that there are 3 or more staff
-  // avoids error if one member of staff had the same
-  // day twice in their rota
+  // day and rota day matching is case-sensitive
+
   let iCoverLocated = 0;
-  //const staffFrequencies = {};
 
   staff.forEach(item =>{
-    item.rota.forEach(rotaItem =>{
-      if (rotaItem === day) {
-        iCoverLocated += 1;
-       // if (staffFrequencies[item.name] === undefined) {
-       //   staffFrequencies[item.name]= 1;
-       // } else {
-       //   staffFrequencies[item.name] +=1;
-       // }
-      }
-    });
+    // check that the staff member has a rota
+    if (item.hasOwnProperty("rota")) {
+      // check for match to specified day in the staff rota
+      item.rota.forEach(rotaItem =>{
+        // if the day is found in the staff rota
+        // increase the number of staff available to cover by 1
+        if (rotaItem === day) {
+          iCoverLocated += 1;
+        }
+      });
+    }
+    
   });
+  // covered if there are 3 or more staff available 
   return (iCoverLocated >= 3);
 };
 
