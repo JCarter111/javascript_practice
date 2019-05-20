@@ -319,6 +319,20 @@ describe("areWeCovered",() =>{
         expect(areWeCovered(staff,"Saturday")).toBe(true);
         expect(areWeCovered(staff,"Tuesday")).toBe(false);
     });
+    test("carries out case-insensitive matching of the day provided and the rota days"
+    ,  () =>{ 
+        const staff = [
+            { name: "Sally", rota: ["Monday", "Tuesday", "Friday","Saturday"]},
+            { name: "Pedro", rota: ["SATURDAY", "Sunday", "Tuesday"] },
+            { name: "Chloe", rota: ["SaturDay"]},
+            { name: "Patrick", rota: ["Monday", "Friday"]}
+        ];
+        expect(areWeCovered(staff,"saturday")).toBe(true);
+        expect(areWeCovered(staff,"SATURDAY")).toBe(true);
+        expect(areWeCovered(staff,"SaturDaY")).toBe(true);
+        expect(areWeCovered(staff,"Tuesday")).toBe(false);
+        expect(areWeCovered(staff,"TUESDAY")).toBe(false);
+    });
     test("returns false if staff rotas are missing",  () =>{ 
         const staff = [
             { name: "Sally" },

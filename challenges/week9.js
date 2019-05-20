@@ -46,7 +46,11 @@ const isValidDNA = str => {
   // is completed without returning false,
   // return true as the string must only contain
   // "C", "G", "T", "A"
-  // these letters must be in uppercase
+  // Note: letters in the string must be in uppercase
+  // for the string to be valid
+  // could add further code to convert string characters
+  // to uppercase for comparison and allow lower case g,c,t,a
+  // to be valid
   for (let i=0; i<str.length;i++){
     if (str.charAt(i)!=="C" && str.charAt(i)!=="G" && 
       str.charAt(i)!=="T" && str.charAt(i)!=="A") return false;
@@ -196,7 +200,9 @@ const areWeCovered = (staff, day) => {
   // day is in the rota of each staff member
   // count total number of times that day is located
 
-  // day and rota day matching is case-sensitive
+  // day and rota day matching has been updated
+  // to case-sensitive searching so that day can be supplied
+  // in the formats "saturday", "SATURDAY", "Saturday", "SaTUrday" etc
 
   let iCoverLocated = 0;
 
@@ -207,7 +213,12 @@ const areWeCovered = (staff, day) => {
       item.rota.forEach(rotaItem =>{
         // if the day is found in the staff rota
         // increase the number of staff available to cover by 1
-        if (rotaItem === day) {
+        //if (rotaItem === day) {
+        // case-insensitve matching of the day with the items
+        // in the rota using RegExp with i - case insensitive flag
+        // if search returns 0 or greater the day has been found in
+        // the rota day
+      if (rotaItem.search(new RegExp(day,"i")) >= 0) {
           iCoverLocated += 1;
         }
       });
