@@ -4,6 +4,25 @@
  */
 const sumDigits = n => {
   if (n === undefined) throw new Error("n is required");
+  // validation to get prevent any number that is not 
+  // an integer
+  if(!Number.isInteger(n)) throw new Error("an integer is required")
+  // convert number to string
+  // split string into an array
+  // loop through the array converting each item to 
+  // a number and summing each value
+  // variable to sum each integer in the number
+  let iNumberSum = 0;
+  //convert the number to an array of single numbers
+  // stored in the array as strings
+  // if n is negative ignore the minus sign by
+  // converting n to a positive integer
+  Math.abs(n).toString().split("").forEach(item =>{
+    //sum the value of each digit in the array
+    // 
+    iNumberSum += Number(item);
+  });
+  return iNumberSum;
 };
 
 /**
@@ -17,6 +36,21 @@ const sumDigits = n => {
 const createRange = (start, end, step) => {
   if (start === undefined) throw new Error("start is required");
   if (end === undefined) throw new Error("end is required");
+  const rangeArray = [];
+  // set the default arrayStep value as 1
+  let arrayStep = 1;
+  // if a step value has been passed to the function
+  // set the arrayStep value to the step value
+  if (step !== undefined) {
+     arrayStep = step;
+  }
+  // for (let i = start; i < end; i += step){
+  for (let i = start; i <= end; i += arrayStep) {
+    rangeArray.push(i);
+  }
+  // add the end value
+  //rangeArray.push(end);
+  return rangeArray;
 };
 
 /**
