@@ -36,17 +36,46 @@ const sumDigits = n => {
 const createRange = (start, end, step) => {
   if (start === undefined) throw new Error("start is required");
   if (end === undefined) throw new Error("end is required");
+  // generate an error message if either start or end are non numeric
+  if (typeof start !== "number") throw new Error("start must be a number");
+  if (typeof end !== "number") throw new Error("end must be a number");
   const rangeArray = [];
   // set the default arrayStep value as 1
   let arrayStep = 1;
   // if a step value has been passed to the function
   // set the arrayStep value to the step value
   if (step !== undefined) {
-     arrayStep = step;
+    if (typeof step !== "number") {
+      throw new Error("step must be a number or not provided");
+    } else {
+      arrayStep = step;
+    }   
   }
-  // for (let i = start; i < end; i += step){
-  for (let i = start; i <= end; i += arrayStep) {
-    rangeArray.push(i);
+  
+
+  // if a step of zero has been provided, throw an error
+  if (arrayStep === 0) {
+    throw new Error("step cannot be zero");
+  // if a positive step value has been provided
+  // increasing loop is required
+  } else if (arrayStep > 0) {
+    // check that end is greater than or equal to start
+    if (end >= start) {
+      for (let i = start; i <= end; i += arrayStep) {
+        rangeArray.push(i);
+      }
+    }
+    
+  // if a negative step value has been provided
+  // decreasing loop required
+  } else {
+    // check that end is less than or equal to start
+    if (end <= start) {
+      // loop contains += because arrayStep is negative
+      for (let i = start; i >=end; i += arrayStep) {
+        rangeArray.push(i);
+      }
+    }
   }
   // add the end value
   //rangeArray.push(end);
