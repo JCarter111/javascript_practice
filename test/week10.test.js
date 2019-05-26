@@ -3,7 +3,7 @@ const {
     createRange,
     getScreentimeAlertList,
     hexToRGB,
-    
+    findWinner  
 }
 = require("../challenges/week10");
 // describe block
@@ -572,5 +572,35 @@ describe.only("hexToRGB",() =>{
         expect(() => {
             hexToRGB(["FF","18","9A"]);
             }).toThrow("hexadecimal string required in format '#F3A56D'");
+    });
+});
+describe.only("findWinner",() =>{
+    test("returns the winner when a row has been completed",  () =>{
+        const gameArray = [
+                            ["X", "X", "X"],
+                            ["0", null, "0"],
+                            ["X", null, "0"]
+                        ];
+        const gameArray1 = [
+            ["X", "X", null],
+            ["0", null, "0"],
+            ["0", "0", "0"]
+        ];
+        expect(findWinner(gameArray)).toBe("X");
+        expect(findWinner(gameArray1)).toBe("0");
+    });
+    test("returns null if no rows, columns or horizontal lines have been completed",  () =>{
+        const gameArray = [
+                            ["X", "0", "X"],
+                            ["0", null, "0"],
+                            ["X", null, "0"]
+                        ];
+        const gameArray1 = [
+            [null, null, null],
+            ["0", null, "0"],
+            ["0", "0", "X"]
+        ];
+        expect(findWinner(gameArray)).toBe(null);
+        expect(findWinner(gameArray1)).toBe(null);
     });
 });

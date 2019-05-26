@@ -219,6 +219,7 @@ const hexToRGB = hexStr => {
   for (let i=0; i< hexToConvert.length-1; i+=2) {
    hexConversion.push(hexToConvert.slice(i,i+2));
   }
+  // create an array to store the 3 converted decimal values
   const decConversion = [];
 
   // convert each 2 digit hexadecimal value to decimal values
@@ -286,7 +287,76 @@ const findWinner = board => {
   if (board === undefined) throw new Error("board is required");
   // check array values horizontally, vertically and diagonally
   // check that board has 3 elements, and each is an array containing 3 items
+
+  // check that the length of the array is 3
+  if (board.length !==3) throw new Error ("invalid board array")
+
+  // check that each element in the array has 3 items
+  board.forEach(item => {
+    if (item.length !==3) throw new Error("invalid board array")
+  })
   
+  // rows
+  //check for horizonal lines which are either all zeros
+  // or all X
+  // if a row is found exit and return the winner
+  // need to use for loops rather than forEach
+  // so that the loops can be exited as soon
+  // as a winner is located
+  for (let i=0; i<board.length; i++) {
+    const frequencies = {};
+     for (let j=0; j<board[i].length; j++) {
+       // find frequency of 0 and X in the current row
+      if (board[i][j] ==="0" || board[i][j] ==="X") {
+        if (frequencies[board[i][j]] === undefined) { 
+          frequencies[board[i][j]]=1;
+        } else {
+          frequencies[board[i][j]]+=1;
+        }
+      }
+     }
+     
+    if (frequencies["0"]===3) {
+        return "0";
+    } else if (frequencies["X"]===3) {
+       return "X";
+    }
+  }
+
+  // columns
+  const zeroCounter = [0,0,0];
+  const xCounter = [0,0,0];
+
+  for (let i=0; i<board.length; i++){
+    // check first column
+    if (board[i][0]==="0") {
+      zeroCounter[0] += 1;
+    } else if (board[i][0]==="X") {
+      xCounter[0] += 1;
+    }
+    if (board[i][1]==="0") {
+      zeroCounter[1] += 1;
+    } else if (board[i][1]==="X") {
+      xCounter[1] += 1;
+    }
+    if (board[i][2]==="0") {
+      zeroCounter[2] += 1;
+    } else if (board[i][2]==="X") {
+      xCounter[2] += 1;
+    }
+  }
+
+  for (let i=0; i<zeroCounter.length; i++){
+    if (zeroCounter[i] ===3){
+      return "0";
+    } else if (xCounter[i] ===3) {
+      return "X";
+    }
+  }
+  // diagonal checking
+  // check board[0][0], board[1][1], board[3][3]
+  // check board[0][3], board[1][1], board[3][0]
+  return null;
 };
 
 module.exports = {
