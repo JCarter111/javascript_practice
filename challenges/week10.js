@@ -134,41 +134,47 @@ const createRange = (start, end, step) => {
 const getScreentimeAlertList = (users, date) => {
   if (users === undefined) throw new Error("users is required");
   if (date === undefined) throw new Error("date is required");
+  // check that users is an array - can check for object
+  if (!Array.isArray(users)) throw new Error("users array is required");
+  // check that date is a string
+  if (typeof date !== "string") 
+    throw new Error("date string is required in the formatt 'YYYY-MM-DD'");
+  // check each user in the array of users
+  // compare the date supplied to the function with the
+  // dates contained in the from the objects in each users
+  // screenTime array 
+  // if a match is located add up the time in each element in the usage 
+  // object in the screenTime array of the user
+  // if the total usage time is greater than 100 minutes
+  // return the username of the user in an array of usernames
 
-// check each user in the array of users
-// compare the date supplied to the function with the
-// dates contained in the from the objects in each users
-// screenTime array 
-// if a match is located add up the time in each element in the usage 
-// object in the screenTime array of the user
-// if the total usage time is greater than 100 minutes
-// return the username of the user in an array of usernames
+  // create array to hold usernames of users with more than 100 minutes usage time
+  const usersUsageGT100 = [];
 
-// create array to hold usernames of users with more than 100 minutes usage time
-const usersUsageGT100 = [];
-
-// loop through each user in the users array
-users.forEach(item => {
+  // loop through each user in the users array
+  users.forEach(item => {
     // set sum of current user's usage to zero
     let sumUserUsage = 0;
-    // loop through each date in the user's screenTime array
-    item.screenTime.forEach (dateItem => {
-      // compare the current date in the user's screenTime array to date
-       if (dateItem.date === date) {
-         // date match found for the current user
-         // add up usage time
-         // sum usage values of an object using for let loop
-         for (let key in dateItem.usage) {
-          sumUserUsage += dateItem.usage[key];
-         }
-       }
-       
-    });
+    // check that user has a screenTime property
+    if (item.hasOwnProperty("screenTime")) {
+      // loop through each date in the user's screenTime array
+      item.screenTime.forEach (dateItem => {
+        // compare the current date in the user's screenTime array to date
+        if (dateItem.date === date) {
+        // date match found for the current user
+        // add up usage time
+        // sum usage values of an object using for let loop
+          for (let key in dateItem.usage) {
+            sumUserUsage += dateItem.usage[key];
+          }
+        }  
+      });
+    }  
     // if the sum of the usage on date is greater than 100
     // add the user's username to the return array
     if (sumUserUsage > 100) usersUsageGT100.push(item.username);  
-});
-return usersUsageGT100;
+  });
+  return usersUsageGT100;
 };
 
 /**
@@ -183,6 +189,13 @@ return usersUsageGT100;
  */
 const hexToRGB = hexStr => {
   if (hexStr === undefined) throw new Error("hexStr is required");
+  // remove leading #
+  // split the hexStr into 3 strings of 2 characters
+  // convert each hexadecimal string to decimal
+  // value
+  // hexadecimal digits A, B, C, D, E, F can
+  // also be written in lowercase
+  // return string in the format rgb(255,17,51)
 };
 
 /**
@@ -198,6 +211,8 @@ const hexToRGB = hexStr => {
 const findWinner = board => {
   if (board === undefined) throw new Error("board is required");
   // check array values horizontally, vertically and diagonally
+  // check that board has 3 elements, and each is an array containing 3 items
+  
 };
 
 module.exports = {

@@ -202,4 +202,323 @@ describe.only("getScreentimeAlertList",() =>{
             ]
             expect(getScreentimeAlertList(userList,"2019-05-02")).toEqual(["beth_1234","esther2867"]);  
     });
+
+
+    test("returns an empty array if no users have > 100 mins usage on the specified date",  
+        () =>{
+            const userList = [
+                {
+                  username: "beth_1234",
+                  name: "Beth Smith",
+                  screenTime: [
+                    { date: "2019-05-01", usage: { twitter: 34, instagram: 22, facebook: 40} },
+                    { date: "2019-05-02", usage: { twitter: 56, instagram: 40, facebook: 31} },
+                    { date: "2019-05-03", usage: { twitter: 12, instagram: 15, facebook: 19} },
+                    { date: "2019-05-04", usage: { twitter: 10, instagram: 56, facebook: 61} },
+                              ]
+                },
+               {
+                 username: "sam_j_1989",
+                 name: "Sam Jones",
+                 screenTime: [
+                    { date: "2019-05-01", usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 10} },
+                    { date: "2019-06-13", usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 16} },
+                    { date: "2019-06-14", usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 31} },
+                            ] 
+                }, 
+                {
+                    username: "esther2867",
+                    name: "Esther O'Brien",
+                    screenTime: [
+                       { date: "2019-05-01", usage: { twitter: 0, whatsApp: 0, linkedIn: 0, safari: 10, instagram:14} },
+                       { date: "2019-06-13", usage: { mapMyRun: 27, whatsApp: 0, facebook: 30, safari: 16} },
+                       { date: "2019-05-02", usage: { mapMyRun: 16, whatsApp: 58, facebook: 23, safari: 31} },
+                               ] 
+                   }, 
+            ]
+            expect(getScreentimeAlertList(userList,"2019-05-01")).toEqual([]);  
+    });
+    test("can return correct list of users if user has no objects in usage on the requested date",  
+        () =>{
+            const userList = [
+                {
+                  username: "beth_1234",
+                  name: "Beth Smith",
+                  screenTime: [
+                    { date: "2019-05-01", usage: { twitter: 34, instagram: 22, facebook: 40} },
+                    { date: "2019-05-02", usage: { twitter: 56, instagram: 40, facebook: 31} },
+                    { date: "2019-05-03", usage: { twitter: 12, instagram: 15, facebook: 19} },
+                    { date: "2019-05-04", usage: { twitter: 10, instagram: 56, facebook: 61} },
+                              ]
+                },
+                {
+                    username: "ritchie@hotmail",
+                    name: "Ritchie Campbell",
+                    screenTime: [
+                      { date: "2018-05-14", usage: {facebook: 40}},
+                      { date: "2019-05-02", usage: { }},
+                      { date: "2019-06-13", usage: { twitter: 12, instagram: 15, facebook: 19} },
+                      { date: "2019-06-14", usage: { twitter: 10, instagram: 56, facebook: 61} },
+                                ]
+                },
+               {
+                 username: "sam_j_1989",
+                 name: "Sam Jones",
+                 screenTime: [
+                    { date: "2019-06-11", usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 10} },
+                    { date: "2019-06-13", usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 16} },
+                    { date: "2019-06-14", usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 31} },
+                            ] 
+                }, 
+                {
+                    username: "esther2867",
+                    name: "Esther O'Brien",
+                    screenTime: [
+                       { date: "2019-05-01", usage: { twitter: 0, whatsApp: 0, linkedIn: 0, safari: 10, instagram:14} },
+                       { date: "2019-06-13", usage: { mapMyRun: 27, whatsApp: 0, facebook: 30, safari: 16} },
+                       { date: "2019-05-02", usage: { mapMyRun: 16, whatsApp: 58, facebook: 23, safari: 31} },
+                               ] 
+                   }, 
+            ]
+            expect(getScreentimeAlertList(userList,"2019-05-02")).toEqual(["beth_1234","esther2867"]);  
+    });
+    test("can return correct list of users if user has no usage on requested date",  
+        () =>{
+            const userList = [
+                {
+                  username: "beth_1234",
+                  name: "Beth Smith",
+                  screenTime: [
+                    { date: "2019-05-01", usage: { twitter: 34, instagram: 22, facebook: 40} },
+                    { date: "2019-05-02", usage: { twitter: 56, instagram: 40, facebook: 31} },
+                    { date: "2019-05-03", usage: { twitter: 12, instagram: 15, facebook: 19} },
+                    { date: "2019-05-04", usage: { twitter: 10, instagram: 56, facebook: 61} },
+                              ]
+                },
+                {
+                    username: "ritchie@hotmail",
+                    name: "Ritchie Campbell",
+                    screenTime: [
+                      { date: "2018-05-14", usage: {facebook: 40}},
+                      { date: "2019-05-02"},
+                      { date: "2019-06-13", usage: { twitter: 12, instagram: 15, facebook: 19} },
+                      { date: "2019-06-14", usage: { twitter: 10, instagram: 56, facebook: 61} },
+                                ]
+                },
+               {
+                 username: "sam_j_1989",
+                 name: "Sam Jones",
+                 screenTime: [
+                    { date: "2019-06-11", usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 10} },
+                    { date: "2019-06-13", usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 16} },
+                    { date: "2019-06-14", usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 31} },
+                            ] 
+                }, 
+                {
+                    username: "esther2867",
+                    name: "Esther O'Brien",
+                    screenTime: [
+                       { date: "2019-05-01", usage: { twitter: 0, whatsApp: 0, linkedIn: 0, safari: 10, instagram:14} },
+                       { date: "2019-06-13", usage: { mapMyRun: 27, whatsApp: 0, facebook: 30, safari: 16} },
+                       { date: "2019-05-02", usage: { mapMyRun: 16, whatsApp: 58, facebook: 23, safari: 31} },
+                               ] 
+                   }, 
+            ]
+            expect(getScreentimeAlertList(userList,"2019-05-02")).toEqual(["beth_1234","esther2867"]);  
+    });
+    test("can return correct list of users if user has no date in screenTime object",  
+        () =>{
+            const userList = [
+                {
+                  username: "beth_1234",
+                  name: "Beth Smith",
+                  screenTime: [
+                    { date: "2019-05-01", usage: { twitter: 34, instagram: 22, facebook: 40} },
+                    { date: "2019-05-02", usage: { twitter: 56, instagram: 40, facebook: 31} },
+                    { date: "2019-05-03", usage: { twitter: 12, instagram: 15, facebook: 19} },
+                    { date: "2019-05-04", usage: { twitter: 10, instagram: 56, facebook: 61} },
+                              ]
+                },
+                {
+                    username: "ritchie@hotmail",
+                    name: "Ritchie Campbell",
+                    screenTime: [
+                      { date: "2018-05-14", usage: {facebook: 40}},
+                      { usage: { linkedIn: 12, instagram: 23, facebook: 29}},
+                      { date: "2019-06-13", usage: { twitter: 12, instagram: 15, facebook: 19} },
+                      { date: "2019-06-14", usage: { twitter: 10, instagram: 56, facebook: 61} },
+                                ]
+                },
+               {
+                 username: "sam_j_1989",
+                 name: "Sam Jones",
+                 screenTime: [
+                    { date: "2019-06-11", usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 10} },
+                    { date: "2019-06-13", usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 16} },
+                    { date: "2019-06-14", usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 31} },
+                            ] 
+                }, 
+                {
+                    username: "esther2867",
+                    name: "Esther O'Brien",
+                    screenTime: [
+                       { date: "2019-05-01", usage: { twitter: 0, whatsApp: 0, linkedIn: 0, safari: 10, instagram:14} },
+                       { date: "2019-06-13", usage: { mapMyRun: 27, whatsApp: 0, facebook: 30, safari: 16} },
+                       { date: "2019-05-02", usage: { mapMyRun: 16, whatsApp: 58, facebook: 23, safari: 31} },
+                               ] 
+                   }, 
+            ]
+            expect(getScreentimeAlertList(userList,"2019-05-02")).toEqual(["beth_1234","esther2867"]);  
+    });
+    test("can return correct list of users if user has no screenTime object",  
+        () =>{
+            const userList = [
+                {
+                  username: "beth_1234",
+                  name: "Beth Smith",
+                  screenTime: [
+                    { date: "2019-05-01", usage: { twitter: 34, instagram: 22, facebook: 40} },
+                    { date: "2019-05-02", usage: { twitter: 56, instagram: 40, facebook: 31} },
+                    { date: "2019-05-03", usage: { twitter: 12, instagram: 15, facebook: 19} },
+                    { date: "2019-05-04", usage: { twitter: 10, instagram: 56, facebook: 61} },
+                              ]
+                },
+                {
+                    username: "ritchie@hotmail",
+                    name: "Ritchie Campbell"
+                },
+               {
+                 username: "sam_j_1989",
+                 name: "Sam Jones",
+                 screenTime: [
+                    { date: "2019-06-11", usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 10} },
+                    { date: "2019-06-13", usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 16} },
+                    { date: "2019-06-14", usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 31} },
+                            ] 
+                }, 
+                {
+                    username: "esther2867",
+                    name: "Esther O'Brien",
+                    screenTime: [
+                       { date: "2019-05-01", usage: { twitter: 0, whatsApp: 0, linkedIn: 0, safari: 10, instagram:14} },
+                       { date: "2019-06-13", usage: { mapMyRun: 27, whatsApp: 0, facebook: 30, safari: 16} },
+                       { date: "2019-05-02", usage: { mapMyRun: 16, whatsApp: 58, facebook: 23, safari: 31} },
+                               ] 
+                   }, 
+            ]
+            expect(getScreentimeAlertList(userList,"2019-05-02")).toEqual(["beth_1234","esther2867"]);  
+    });
+    test("returns a blank array if the list of users is blank",  
+        () =>{
+            const userList = []
+            expect(getScreentimeAlertList(userList,"2019-05-02")).toEqual([]);  
+    });
+    test("returns a blank array if the list of users has no objects",  
+        () =>{
+            expect(getScreentimeAlertList(["beth_1234", "sam_j_1989"],"2019-05-02")).toEqual([]);  
+    });
+    // error message testing
+    test(
+        "returns an error message if users array is not supplied"
+        , () => {
+        expect(() => {
+            getScreentimeAlertList();
+        }).toThrow("users is required");
+        
+    });
+    test(
+        "returns an error message if date not supplied"
+        , () => {
+            const userList = [
+                {
+                  username: "beth_1234",
+                  name: "Beth Smith",
+                  screenTime: [
+                    { date: "2019-05-01", usage: { twitter: 34, instagram: 22, facebook: 40} },
+                    { date: "2019-05-02", usage: { twitter: 56, instagram: 40, facebook: 31} },
+                    { date: "2019-05-03", usage: { twitter: 12, instagram: 15, facebook: 19} },
+                    { date: "2019-05-04", usage: { twitter: 10, instagram: 56, facebook: 61} },
+                              ]
+                },
+               {
+                 username: "sam_j_1989",
+                 name: "Sam Jones",
+                 screenTime: [
+                    { date: "2019-06-11", usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 10} },
+                    { date: "2019-06-13", usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 16} },
+                    { date: "2019-06-14", usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 31} },
+                            ] 
+                }, 
+            ]
+        expect(() => {
+            getScreentimeAlertList(userList);
+        }).toThrow("date is required");
+        
+    });
+    test(
+        "returns an error message if date is not a string"
+        , () => {
+            const userList = [
+                {
+                  username: "beth_1234",
+                  name: "Beth Smith",
+                  screenTime: [
+                    { date: "2019-05-01", usage: { twitter: 34, instagram: 22, facebook: 40} },
+                    { date: "2019-05-02", usage: { twitter: 56, instagram: 40, facebook: 31} },
+                    { date: "2019-05-03", usage: { twitter: 12, instagram: 15, facebook: 19} },
+                    { date: "2019-05-04", usage: { twitter: 10, instagram: 56, facebook: 61} },
+                              ]
+                },
+               {
+                 username: "sam_j_1989",
+                 name: "Sam Jones",
+                 screenTime: [
+                    { date: "2019-06-11", usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 10} },
+                    { date: "2019-06-13", usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 16} },
+                    { date: "2019-06-14", usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 31} },
+                            ] 
+                }, 
+            ]
+        expect(() => {
+            getScreentimeAlertList(userList, 2019);
+        }).toThrow("date string is required in the formatt 'YYYY-MM-DD'");
+        expect(() => {
+            getScreentimeAlertList(userList,{date: "2019-05-02"});
+        }).toThrow("date string is required in the formatt 'YYYY-MM-DD'");
+        
+    });
+    test(
+        "returns an error message if users is not an array"
+        , () => {
+            const userList = { user1: 
+                {
+                  username: "beth_1234",
+                  name: "Beth Smith",
+                  screenTime: [
+                    { date: "2019-05-01", usage: { twitter: 34, instagram: 22, facebook: 40} },
+                    { date: "2019-05-02", usage: { twitter: 56, instagram: 40, facebook: 31} },
+                    { date: "2019-05-03", usage: { twitter: 12, instagram: 15, facebook: 19} },
+                    { date: "2019-05-04", usage: { twitter: 10, instagram: 56, facebook: 61} },
+                              ]
+                },
+                user2: {
+                 username: "sam_j_1989",
+                 name: "Sam Jones",
+                 screenTime: [
+                    { date: "2019-06-11", usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 10} },
+                    { date: "2019-06-13", usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 16} },
+                    { date: "2019-06-14", usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 31} },
+                            ] 
+                }
+            }
+        expect(() => {
+            getScreentimeAlertList(userList,"2019-05-02");
+        }).toThrow("users array is required");
+        expect(() => {
+            getScreentimeAlertList(1234,"2019-05-02");
+        }).toThrow("users array is required");
+        expect(() => {
+            getScreentimeAlertList("beth_1234, sam_j_1989","2019-05-02");
+        }).toThrow("users array is required");
+    });
 });
