@@ -2,6 +2,7 @@ const {
     sumDigits,
     createRange,
     getScreentimeAlertList,
+    hexToRGB,
     
 }
 = require("../challenges/week10");
@@ -142,7 +143,7 @@ describe("createRange",() =>{
         
     });
 });
-describe.only("getScreentimeAlertList",() =>{
+describe("getScreentimeAlertList",() =>{
     test("returns an array of users with greater than 100 minutes usage time - single user on one date",  
         () =>{
             const userList = [
@@ -520,5 +521,56 @@ describe.only("getScreentimeAlertList",() =>{
         expect(() => {
             getScreentimeAlertList("beth_1234, sam_j_1989","2019-05-02");
         }).toThrow("users array is required");
+    });
+});
+describe.only("hexToRGB",() =>{
+
+    test("produces the correct rgb value if a valid hexadecimal string starting with # is provided",  () =>{
+        expect(hexToRGB("#123456")).toBe("rgb(18,52,86)");
+        expect(hexToRGB("#DEFABC")).toBe("rgb(222,250,188)");
+        expect(hexToRGB("#1AF90C")).toBe("rgb(26,249,12)");
+        expect(hexToRGB("#F05ACD")).toBe("rgb(240,90,205)");
+    });
+    test("it returns the correct rgb value if the # is omitted in a valid hexadecimal string",  () =>{
+        expect(hexToRGB("123456")).toBe("rgb(18,52,86)");
+        expect(hexToRGB("DEFABC")).toBe("rgb(222,250,188)");
+        expect(hexToRGB("1AF90C")).toBe("rgb(26,249,12)");
+        expect(hexToRGB("F05ACD")).toBe("rgb(240,90,205)");
+    });
+    
+    // error message testing
+    test(
+        "returns an error message if a hexadecimal string is not provided"
+        , () => {
+        expect(() => {
+        hexToRGB();
+        }).toThrow("hexStr is required");
+        
+    });
+    test(
+        "returns an error message if the hexadecimal string is too long"
+        , () => {
+        expect(() => {
+        hexToRGB("#1B1256A");
+        }).toThrow("hexadecimal string required in format '#F3A56D'");
+        expect(() => {
+            hexToRGB("3A290B8");
+            }).toThrow("hexadecimal string required in format '#F3A56D'");
+    });
+    test(
+        "returns an error message if the a string is not provided"
+        , () => {
+        expect(() => {
+        hexToRGB(0x1B1256A);
+        }).toThrow("hexadecimal string required in format '#F3A56D'");
+        expect(() => {
+            hexToRGB(12789);
+            }).toThrow("hexadecimal string required in format '#F3A56D'");
+        expect(() => {
+            hexToRGB(false);
+            }).toThrow("hexadecimal string required in format '#F3A56D'");
+        expect(() => {
+            hexToRGB(["FF","18","9A"]);
+            }).toThrow("hexadecimal string required in format '#F3A56D'");
     });
 });

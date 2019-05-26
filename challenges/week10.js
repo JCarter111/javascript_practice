@@ -188,14 +188,88 @@ const getScreentimeAlertList = (users, date) => {
  * @param {String} str
  */
 const hexToRGB = hexStr => {
-  if (hexStr === undefined) throw new Error("hexStr is required");
-  // remove leading #
   // split the hexStr into 3 strings of 2 characters
+  // store these in an array
   // convert each hexadecimal string to decimal
   // value
   // hexadecimal digits A, B, C, D, E, F can
   // also be written in lowercase
   // return string in the format rgb(255,17,51)
+  if (hexStr === undefined) throw new Error("hexStr is required");
+  if (typeof hexStr !== "string") 
+    throw new Error("hexadecimal string required in format '#F3A56D'");
+  
+  let hexToConvert = "";
+  // remove leading # if this is present
+  if (hexStr.charAt(0)==="#") {
+      hexToConvert = hexStr.slice(1);
+  } else {
+      hexToConvert = hexStr;
+  }
+  
+  // if the remaining string contains less than or more than 6 characters the 
+  // string is invalid
+  if (hexToConvert.length !== 6) throw new Error("hexadecimal string required in format '#F3A56D'");
+
+  //check for valid characters in the string
+  
+  // split the hexStr into 3 strings of 2 characters
+  // store these in an array
+  const hexConversion = [];
+  for (let i=0; i< hexToConvert.length-1; i+=2) {
+   hexConversion.push(hexToConvert.slice(i,i+2));
+  }
+  const decConversion = [];
+
+  // convert each 2 digit hexadecimal value to decimal values
+  hexConversion.forEach((item,index) =>{
+
+    // create array to store multipliers for decimal conversion
+    let decMultipliers=[];
+
+    // loop through item digit in the current 2 digit hexadecimal
+    for (let i=0;i<2; i++){
+        // convert hexadecimal digits into decimal mulipliers
+        switch (item.charAt(i).toUpperCase()){
+        case "A":
+          decMultipliers.push(10);
+          break;
+        case "B":
+          decMultipliers.push(11);
+          break;
+        case "C":
+          decMultipliers.push(12);
+          break;
+        case "D":
+          decMultipliers.push(13);
+          break;
+        case "E":
+          decMultipliers.push(14);
+          break;
+        case "F":
+          decMultipliers.push(15);
+          break;
+        default:
+          // character is not A,B,C,D,E,F
+          // convert character to a number to use as a multiplier
+          decMultipliers.push(parseInt(item.charAt(i)));
+      }
+    
+    }
+      // convert the two character hexadecimal value to decimal
+      // and store the decimal value in a three element array
+      // decConversion
+      // formula for conversion
+      // 1st decimal multiplier * 16 + 2nd decimal multiplier 
+      decConversion[index] = decMultipliers[0]*16 + decMultipliers[1];
+      
+  });
+  // return rgb values as a string in the format
+  // "rgb(255,16,15)"
+  return ("rgb(" + decConversion[0].toString() + 
+    "," + decConversion[1].toString() + 
+    "," + decConversion[2].toString() + 
+    ")");
 };
 
 /**
