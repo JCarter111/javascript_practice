@@ -28,7 +28,10 @@ const sumDigits = n => {
 /**
  * This function creates a range of numbers as an array. It received a start, an end and a step. Step is the gap between numbers in the range. For example, if start = 3, end = 11 and step = 2 the resulting range would be: [3, 5, 7, 9, 11]
  * Both the start and the end numbers are inclusive.
+ * if end is greater than start an ascending array of numbers is provided.
+ * if end is less than start a descending array of numbers is provided.
  * Step is an optional parameter. If it is not provided, assume the step is 1.
+ * Step must be a positive integer 1 or greater.
  * @param {Number} start
  * @param {Number} end
  * @param {Number} step
@@ -39,46 +42,63 @@ const createRange = (start, end, step) => {
   // generate an error message if either start or end are non numeric
   if (typeof start !== "number") throw new Error("start must be a number");
   if (typeof end !== "number") throw new Error("end must be a number");
+
+  // initialise array to hold return values
   const rangeArray = [];
+
   // set the default arrayStep value as 1
   let arrayStep = 1;
+
   // if a step value has been passed to the function
   // set the arrayStep value to the step value
+  // step must be an integer 
+
   if (step !== undefined) {
-    if (typeof step !== "number") {
-      throw new Error("step must be a number or not provided");
+    if (!Number.isInteger(step)) {
+      throw new Error("step must be a positive integer, or not provided");
     } else {
       arrayStep = step;
     }   
   }
   
-
   // if a step of zero has been provided, throw an error
-  if (arrayStep === 0) {
-    throw new Error("step cannot be zero");
-  // if a positive step value has been provided
-  // increasing loop is required
-  } else if (arrayStep > 0) {
-    // check that end is greater than or equal to start
-    if (end >= start) {
-      for (let i = start; i <= end; i += arrayStep) {
-        rangeArray.push(i);
-      }
+  if (arrayStep < 1 ) 
+      throw new Error("step must be an integer >= 1, or not provided");
+
+  // check the start and end values
+  // if the end value is greater than the start value 
+  // create an array of values, starting with start
+  // and increasing by the step value
+  // stop adding values to the array once the value exceeds end
+  // end value may not be included in the array
+  // e.g. start = 2, end = 9, step = 4
+  // array values [2,6]
+
+  // if the end value is less than the start value
+  // create any array of values starting with end and decreasing by the step value
+  // stop adding values to the array once the value is below start
+  // end value may not be included in the array
+  // e.g. start = 5, end = 1, step = 3
+  // array values [5,2]
+   
+  if (end >= start) {
+    // end value greater than start, increasing value return array is required
+    // starting with the start value
+    // increasing loop required
+    for (let i = start; i <= end; i += arrayStep) {
+      rangeArray.push(i);
     }
     
-  // if a negative step value has been provided
+  // end value is less than the start value 
+  // decreasing value return array is required
+  // starting with start value
   // decreasing loop required
   } else {
-    // check that end is less than or equal to start
-    if (end <= start) {
-      // loop contains += because arrayStep is negative
-      for (let i = start; i >=end; i += arrayStep) {
-        rangeArray.push(i);
-      }
+    for (let i = start; i >=end; i -= arrayStep) {
+      rangeArray.push(i);
     }
   }
-  // add the end value
-  //rangeArray.push(end);
+
   return rangeArray;
 };
 
@@ -114,6 +134,41 @@ const createRange = (start, end, step) => {
 const getScreentimeAlertList = (users, date) => {
   if (users === undefined) throw new Error("users is required");
   if (date === undefined) throw new Error("date is required");
+
+// check each user in the array of users
+// compare the date supplied to the function with the
+// dates contained in the from the objects in each users
+// screenTime array 
+// if a match is located add up the time in each element in the usage 
+// object in the screenTime array of the user
+// if the total usage time is greater than 100 minutes
+// return the username of the user in an array of usernames
+
+// create array to hold usernames of users with more than 100 minutes usage time
+const usersUsageGT100 = [];
+
+// loop through each user in the users array
+users.forEach(item => {
+    // set sum of current user's usage to zero
+    let sumUserUsage = 0;
+    // loop through each date in the user's screenTime array
+    item.screenTime.forEach (dateItem => {
+      // compare the current date in the user's screenTime array to date
+       if (dateItem.date === date) {
+         // date match found for the current user
+         // add up usage time
+         // sum usage values of an object using for let loop
+         for (let key in dateItem.usage) {
+          sumUserUsage += dateItem.usage[key];
+         }
+       }
+       
+    });
+    // if the sum of the usage on date is greater than 100
+    // add the user's username to the return array
+    if (sumUserUsage > 100) usersUsageGT100.push(item.username);  
+});
+return usersUsageGT100;
 };
 
 /**
@@ -142,6 +197,7 @@ const hexToRGB = hexStr => {
  */
 const findWinner = board => {
   if (board === undefined) throw new Error("board is required");
+  // check array values horizontally, vertically and diagonally
 };
 
 module.exports = {
