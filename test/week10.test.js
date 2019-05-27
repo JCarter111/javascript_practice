@@ -537,7 +537,12 @@ describe.only("hexToRGB",() =>{
         expect(hexToRGB("1AF90C")).toBe("rgb(26,249,12)");
         expect(hexToRGB("F05ACD")).toBe("rgb(240,90,205)");
     });
-    
+    test("it returns the correct rgb value if the hexadecimal letters are lower case",  () =>{
+        expect(hexToRGB("123a56")).toBe("rgb(18,58,86)");
+        expect(hexToRGB("defabc")).toBe("rgb(222,250,188)");
+        expect(hexToRGB("1Af90C")).toBe("rgb(26,249,12)");
+        expect(hexToRGB("f05ACd")).toBe("rgb(240,90,205)");
+    });
     // error message testing
     test(
         "returns an error message if a hexadecimal string is not provided"
@@ -558,12 +563,37 @@ describe.only("hexToRGB",() =>{
             }).toThrow("hexadecimal string required in format '#F3A56D'");
     });
     test(
-        "returns an error message if the a string is not provided"
+        "returns an error message if the hexadecimal string is too short"
         , () => {
         expect(() => {
-        hexToRGB(0x1B1256A);
+        hexToRGB("#1B25A");
         }).toThrow("hexadecimal string required in format '#F3A56D'");
         expect(() => {
+            hexToRGB("3A29");
+            }).toThrow("hexadecimal string required in format '#F3A56D'");
+    });
+    test(
+        "returns an error message if the hexadecimal string contains invalid characters"
+        , () => {
+        expect(() => {
+        hexToRGB("#1B25AG");
+        }).toThrow("hexadecimal string required in format '#F3A56D'");
+        expect(() => {
+            hexToRGB("3A29HZ");
+            }).toThrow("hexadecimal string required in format '#F3A56D'");
+        expect(() => {
+            hexToRGB("3 29H!");
+            }).toThrow("hexadecimal string required in format '#F3A56D'");
+    });
+    test(
+        "returns an error message if the string format is not correct"
+        , () => {
+        expect(() => {
+            // do not permit hexadecimal written in the numeric format 0x3F4D3A
+            hexToRGB(0x1B125A);
+            }).toThrow("hexadecimal string required in format '#F3A56D'");
+        expect(() => {
+            // number instead of string
             hexToRGB(12789);
             }).toThrow("hexadecimal string required in format '#F3A56D'");
         expect(() => {
@@ -576,18 +606,114 @@ describe.only("hexToRGB",() =>{
 });
 describe.only("findWinner",() =>{
     test("returns the winner when a row has been completed",  () =>{
+        // horizontal rows of "X"
         const gameArray = [
                             ["X", "X", "X"],
                             ["0", null, "0"],
                             ["X", null, "0"]
                         ];
         const gameArray1 = [
-            ["X", "X", null],
-            ["0", null, "0"],
-            ["0", "0", "0"]
+                            ["X", "0", "X"],
+                            ["X", "X", "X"],
+                            ["0", null, "0"]
+                        ];
+        const gameArray2 = [
+                            ["0", "X", "X"],
+                            ["0", null, "0"],
+                            ["X", "X", "X"]
+                        ];
+        // horizontal rows of "0"
+        const gameArray3 = [
+                            ["0", "0", "0"],
+                            ["X", null, "0"],
+                            ["0", "X", "X"]
+                        ];
+        const gameArray4 = [
+                            ["0", "X", "0"],
+                            ["0", "0", "0"],
+                            ["X", "0", "X"]
+                        ];
+        const gameArray5 = [
+                            ["X", "X", null],
+                            ["X", null, "0"],
+                            ["0", "0", "0"]
+                        ];
+        expect(findWinner(gameArray)).toBe("X");
+        expect(findWinner(gameArray1)).toBe("X");
+        expect(findWinner(gameArray2)).toBe("X");
+        expect(findWinner(gameArray3)).toBe("0");
+        expect(findWinner(gameArray4)).toBe("0");
+        expect(findWinner(gameArray5)).toBe("0");
+    });
+    test("returns the winner when a column has been completed",  () =>{
+        // vertical rows of "X"
+        const gameArray = [
+                            ["X", "0", "X"],
+                            ["X", null, "0"],
+                            ["X", null, "0"]
+                        ];
+        const gameArray1 = [
+                            ["X", "X", "X"],
+                            ["0", "X", "X"],
+                            ["0", "X", "0"]
+                        ];
+        const gameArray2 = [
+                            ["0", "X", "X"],
+                            ["0", null, "X"],
+                            ["X", "0", "X"]
+                        ];
+        // horizontal rows of "0"
+        const gameArray3 = [
+                            ["0", "X", "0"],
+                            ["0", null, "0"],
+                            ["0", "X", "X"]
+                        ];
+        const gameArray4 = [
+                            ["X", "0", "0"],
+                            ["0", "0", null],
+                            [null, "0", "X"]
+                        ];
+        const gameArray5 = [
+                            ["X", "X", "0"],
+                            ["X", null, "0"],
+                            ["0", "X", "0"]
+                        ];
+        expect(findWinner(gameArray)).toBe("X");
+        expect(findWinner(gameArray1)).toBe("X");
+        expect(findWinner(gameArray2)).toBe("X");
+        expect(findWinner(gameArray3)).toBe("0");
+        expect(findWinner(gameArray4)).toBe("0");
+        expect(findWinner(gameArray5)).toBe("0");
+    });
+    test("returns the winner when a diagonal line has been completed",  () =>{
+        // left to right diagonal line of "X"
+        const gameArray = [
+                            ["X", "0", null],
+                            ["0", "X", "0"],
+                            ["X", null, "X"]
+                        ];
+        // left to right diagonal line of "0"
+        const gameArray1 = [
+                            ["0", "0", null],
+                            ["0", "0", "0"],
+                            ["X", null, "0"]
+                        ];
+        // right to left diagonal line of "X"
+        const gameArray2 = [
+            [null, null, "X"],
+            ["X", "X", "0"],
+            ["X", "0", "X"]
+        ];
+        // right to left diagonal line of "0"
+        const gameArray3 = [
+            [null, null, "0"],
+            ["X", "0", "0"],
+            ["0", "0", "X"]
         ];
         expect(findWinner(gameArray)).toBe("X");
         expect(findWinner(gameArray1)).toBe("0");
+        expect(findWinner(gameArray2)).toBe("X");
+        expect(findWinner(gameArray3)).toBe("0");
     });
     test("returns null if no rows, columns or horizontal lines have been completed",  () =>{
         const gameArray = [
@@ -596,11 +722,134 @@ describe.only("findWinner",() =>{
                             ["X", null, "0"]
                         ];
         const gameArray1 = [
-            [null, null, null],
+            [null, "X", null],
             ["0", null, "0"],
             ["0", "0", "X"]
         ];
         expect(findWinner(gameArray)).toBe(null);
         expect(findWinner(gameArray1)).toBe(null);
+    });
+    test("returns null if the array contains values that are not '0','X' or null",  () =>{
+        const gameArray = [
+                            ["X0", "0", "X"],
+                            ["0", "", "0"],
+                            ["X", null, 123]
+                        ];
+        const gameArray1 = [
+            [27, "X", null],
+            ["0", false, "0"],
+            ["0", "0", "X"]
+        ];
+        const gameArray2 = [
+            ["X0X", "X", null],
+            ["0X", {x:0,0:0}, "0"],
+            ["0", "0", "X"]
+        ];
+        const gameArray3 = [
+            ["X0X", "X0", "XXXX"],
+            ["0X", "0", 0],
+            ["x0", "0", "X"]
+        ];
+        
+        expect(findWinner(gameArray)).toBe(null);
+        expect(findWinner(gameArray1)).toBe(null);
+        expect(findWinner(gameArray2)).toBe(null);
+        expect(findWinner(gameArray3)).toBe(null);
+    });
+    test("returns null if the array contains lowercase 'x' values instead of 'X'",  () =>{
+        // lowercase x is not permitted
+        const gameArray = [
+            ["x", "x", "x"],
+            ["x", "0", 0],
+            ["x", "0", "x"]
+        ];
+        expect(findWinner(gameArray)).toBe(null);
+    });
+    test("returns null if a row, column or horizonal containing all nulls is present",  () =>{
+        // vertical row of null values
+        const gameArray = [
+                            ["X", null, "X"],
+                            ["0", null, "0"],
+                            ["X", null, "0"]
+                        ];
+        // horizontal row of null values
+        const gameArray1 = [
+            [null, "X", null],
+            [null, null, null],
+            ["0", "0", "X"]
+        ];
+        // left to right diagonal line of null values
+        const gameArray2 = [
+            [null, null, "0"],
+            ["0", null, "0"],
+            ["0", "0", null]
+        ];
+        // right to left diagonal line of null values
+        const gameArray3 = [
+            [null, "0", null],
+            ["0", null, "0"],
+            [null, "0", "X"]
+        ];
+        expect(findWinner(gameArray)).toBe(null);
+        expect(findWinner(gameArray1)).toBe(null);
+        expect(findWinner(gameArray2)).toBe(null);
+        expect(findWinner(gameArray3)).toBe(null);
+    });
+    test("returns null if the whole array is full of null values",  () =>{
+        const gameArray = [
+                            [null, null, null],
+                            [null, null, null],
+                            [null, null, null]
+                        ];
+        
+        expect(findWinner(gameArray)).toBe(null);
+    });
+    
+    // error message testing
+    test(
+        "returns an error message if no board array is supplied"
+        , () => {
+        expect(() => { findWinner();}).toThrow("board is required");   
+    });
+    test(
+        "returns an error message if board is not an array"
+        , () => {
+        expect(() => { findWinner("X","0","X");}).toThrow("board array is required"); 
+        expect(() => { findWinner({X:"X",0:"0"});}).toThrow("board array is required");  
+        expect(() => { findWinner(false);}).toThrow("board array is required");   
+    });
+    test("returns error message if a 3 x 3 array is not supplied",  () =>{
+        // board is blank
+        const gameArray = [];  
+        // board is a 4 x 4 array - too large
+        const gameArray1 = [
+            [null, "X", null, "X"],
+            ["X", null, "0",null],
+            ["0", "0","0", "0"],
+            ["X", "0","0", "X"]
+        ];
+        // board is a 2 x 2 array - too small
+        const gameArray2 = [
+            ["0","0"],
+            ["X", null],
+        ];   
+        // one array element contains more than 3 items
+        const gameArray3 = [
+            ["0","0","X"],
+            ["X", null,"0","X"],
+            ["X","0","0"]
+        ];   
+        // the length of the array is too long
+        const gameArray4 = [
+            ["0","0","X"],
+            ["0", null,"0"],
+            ["0","X","X"],
+            ["0","X","0"]
+        ];   
+        expect(() => { findWinner(gameArray);}).toThrow("invalid board array size");
+        expect(() => { findWinner(gameArray1);}).toThrow("invalid board array size");
+        expect(() => { findWinner(gameArray2);}).toThrow("invalid board array size");
+        expect(() => { findWinner(gameArray3);}).toThrow("invalid board array size");
+        expect(() => { findWinner(gameArray4);}).toThrow("invalid board array size");
     });
 });

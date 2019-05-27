@@ -206,12 +206,16 @@ const hexToRGB = hexStr => {
   } else {
       hexToConvert = hexStr;
   }
-  
+  // replace any characters in the string  that are
+  // not 0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F or a,b,c,d,e,f
+  hexToConvert = hexToConvert.replace(/[^a-f0-9]/gi,'');
   // if the remaining string contains less than or more than 6 characters the 
   // string is invalid
   if (hexToConvert.length !== 6) throw new Error("hexadecimal string required in format '#F3A56D'");
 
   //check for valid characters in the string
+  //const eachWord = str.replace(/[^a-z ]/gi,'').toLowerCase().split(" ");
+  //str = str.replace(/[g-z]/gi, '');
   
   // split the hexStr into 3 strings of 2 characters
   // store these in an array
@@ -281,46 +285,87 @@ const hexToRGB = hexStr => {
  *  ["X", null, "0"]
  * ]
  * The function should return "X" if player X has won, "0" if the player 0 has won, and null if there is currently no winner.
+ * X must be uppercase
  * @param {Array} board
  */
 const findWinner = board => {
   if (board === undefined) throw new Error("board is required");
-  // check array values horizontally, vertically and diagonally
+
+  // check that board is an array 
+  if (!Array.isArray(board)) throw new Error("board array is required");
+
   // check that board has 3 elements, and each is an array containing 3 items
 
   // check that the length of the array is 3
-  if (board.length !==3) throw new Error ("invalid board array")
+  if (board.length !==3) throw new Error ("invalid board array size")
 
   // check that each element in the array has 3 items
   board.forEach(item => {
-    if (item.length !==3) throw new Error("invalid board array")
+    if (item.length !==3) throw new Error("invalid board array size")
   })
+
+  // check array values horizontally, vertically and diagonally
   
   // rows
   //check for horizonal lines which are either all zeros
   // or all X
-  // if a row is found exit and return the winner
-  // need to use for loops rather than forEach
+  // X must be uppercase
+  // use object to store frequencies of zeros and Xs
+  // if a complete row is found (frequency of either 0 or X is 3)
+  // exit, without working through the remaining code
+  // and return the winner
+  
+
+  // diagonal 1 - left to right
+  // check board[0][0], board[1][1], board[2][2]
+  // use an object to store frequencies of zeros and Xs
+  // if a complete diagonal row is found (frequency of 0 or X is 3)
+  // exit, without continuing through the code and return the winner
+
+  // in both rows and diagonal 1
+  // need to use for for loops rather than forEach
   // so that the loops can be exited as soon
   // as a winner is located
+
+  // can use the same loop for row and diagonal 1 checking
+  
+  // object to store diagonal 1 frequencies
+  let freqDiagonal1 = {"0":0, "X":0};
+
   for (let i=0; i<board.length; i++) {
-    const frequencies = {};
+    
+    // create object to store frequencies of 
+    // of zeros and Xs
+    let frequencies = {"0":0, "X":0};
      for (let j=0; j<board[i].length; j++) {
        // find frequency of 0 and X in the current row
       if (board[i][j] ==="0" || board[i][j] ==="X") {
-        if (frequencies[board[i][j]] === undefined) { 
-          frequencies[board[i][j]]=1;
-        } else {
           frequencies[board[i][j]]+=1;
-        }
       }
      }
-     
+    // if the final value of the row frequencies
+    // for the zeros or the Xs is 3
+    // return the winner 
     if (frequencies["0"]===3) {
         return "0";
     } else if (frequencies["X"]===3) {
        return "X";
     }
+    // count diagonal 1 values
+    // check each board[i][i] value only
+    if (board[i][i]==="0" || board[i][i] === "X"){
+      freqDiagonal1[board[i][i]] +=1;  
+    }
+  }
+
+  // diagonal 1 - left to right
+  // if the final value of the freqDiagonal1 frequencies
+  // for the zeros or the Xs is 3
+  // return the winner 
+  if (freqDiagonal1["0"]===3) {
+      return "0";
+  } else if (freqDiagonal1["X"]===3) {
+     return "X";
   }
 
   // columns
@@ -353,9 +398,29 @@ const findWinner = board => {
       return "X";
     }
   }
-  // diagonal checking
-  // check board[0][0], board[1][1], board[3][3]
-  // check board[0][3], board[1][1], board[3][0]
+  // diagonal 2 - right to left
+  // check board[0][2], board[1][1], board[2][0]
+  let freqDiagonal2={"0":0,"X":0};
+
+    if (board[0][2]==="0"|| board[0][2]==="X"){
+      freqDiagonal2[board[0][2]] +=1;
+    }
+    if (board[1][1]==="0"|| board[1][1]==="X"){
+      freqDiagonal2[board[1][1]] +=1;
+    }
+    if (board[2][0]==="0"|| board[2][0]==="X"){
+      freqDiagonal2[board[2][0]] +=1;
+    }
+
+  // if the final value of the freqDiagonal1 frequencies
+  // for the zeros or the Xs is 3
+  // return the winner 
+  if (freqDiagonal2["0"]===3) {
+    return "0";
+  } else if (freqDiagonal2["X"]===3) {
+   return "X";
+  }
+
   return null;
 };
 
