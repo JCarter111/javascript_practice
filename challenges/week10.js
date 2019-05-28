@@ -369,48 +369,44 @@ const findWinner = board => {
   }
 
   // columns
-  const zeroCounter = [0,0,0];
-  const xCounter = [0,0,0];
+  // columns
+
+  let freqVert1={"0": 0, "X": 0};
+  let freqVert2={"0": 0, "X": 0};
+  let freqVert3={"0": 0, "X": 0};
 
   for (let i=0; i<board.length; i++){
     // check first column
-    if (board[i][0]==="0") {
-      zeroCounter[0] += 1;
-    } else if (board[i][0]==="X") {
-      xCounter[0] += 1;
+    if (board[i][0]==="0"|| board[i][0]==="X" ) {
+      freqVert1[board[i][0]]+=1;
     }
-    if (board[i][1]==="0") {
-      zeroCounter[1] += 1;
-    } else if (board[i][1]==="X") {
-      xCounter[1] += 1;
+    if (board[i][1]==="0"|| board[i][1]==="X") {
+      freqVert2[board[i][1]]+=1;
     }
-    if (board[i][2]==="0") {
-      zeroCounter[2] += 1;
-    } else if (board[i][2]==="X") {
-      xCounter[2] += 1;
+    if (board[i][2]==="0"|| board[i][2]==="X") {
+      freqVert3[board[i][2]]+=1;
     }
-  }
 
-  for (let i=0; i<zeroCounter.length; i++){
-    if (zeroCounter[i] ===3){
+    if (freqVert1["0"] === 3 || freqVert2["0"] ===3 || freqVert3["0"] === 3) {
       return "0";
-    } else if (xCounter[i] ===3) {
+    } else if (freqVert1["X"] === 3 || freqVert2["X"] === 3 || freqVert3["X"] === 3) {
       return "X";
     }
   }
+
   // diagonal 2 - right to left
   // check board[0][2], board[1][1], board[2][0]
   let freqDiagonal2={"0":0,"X":0};
 
-    if (board[0][2]==="0"|| board[0][2]==="X"){
-      freqDiagonal2[board[0][2]] +=1;
-    }
-    if (board[1][1]==="0"|| board[1][1]==="X"){
-      freqDiagonal2[board[1][1]] +=1;
-    }
-    if (board[2][0]==="0"|| board[2][0]==="X"){
-      freqDiagonal2[board[2][0]] +=1;
-    }
+  if (board[0][2]==="0"|| board[0][2]==="X"){
+    freqDiagonal2[board[0][2]] +=1;
+  }
+  if (board[1][1]==="0"|| board[1][1]==="X"){
+    freqDiagonal2[board[1][1]] +=1;
+  }
+  if (board[2][0]==="0"|| board[2][0]==="X"){
+    freqDiagonal2[board[2][0]] +=1;
+  }
 
   // if the final value of the freqDiagonal1 frequencies
   // for the zeros or the Xs is 3
@@ -420,7 +416,8 @@ const findWinner = board => {
   } else if (freqDiagonal2["X"]===3) {
    return "X";
   }
-
+  // if this point is reached no horizontal, vertical or diagonal
+  // winning row has been found, return null
   return null;
 };
 

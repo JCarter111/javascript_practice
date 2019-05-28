@@ -37,7 +37,7 @@ describe("sumDigits",() =>{
         expect(() => {
         sumDigits("1456");
         }).toThrow("an integer is required");
-        // decimal which is not .0 returns error
+        // decimal which is not .0, i.e. cannot be represented by an integer returns error
         expect(() => {
             sumDigits(1456.45);
             }).toThrow("an integer is required");
@@ -523,7 +523,7 @@ describe("getScreentimeAlertList",() =>{
         }).toThrow("users array is required");
     });
 });
-describe.only("hexToRGB",() =>{
+describe("hexToRGB",() =>{
 
     test("produces the correct rgb value if a valid hexadecimal string starting with # is provided",  () =>{
         expect(hexToRGB("#123456")).toBe("rgb(18,52,86)");
@@ -604,7 +604,7 @@ describe.only("hexToRGB",() =>{
             }).toThrow("hexadecimal string required in format '#F3A56D'");
     });
 });
-describe.only("findWinner",() =>{
+describe("findWinner",() =>{
     test("returns the winner when a row has been completed",  () =>{
         // horizontal rows of "X"
         const gameArray = [
