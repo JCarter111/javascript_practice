@@ -523,7 +523,7 @@ describe("getScreentimeAlertList",() =>{
         }).toThrow("users array is required");
     });
 });
-describe("hexToRGB",() =>{
+describe.only("hexToRGB",() =>{
 
     test("produces the correct rgb value if a valid hexadecimal string starting with # is provided",  () =>{
         expect(hexToRGB("#123456")).toBe("rgb(18,52,86)");

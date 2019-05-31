@@ -212,10 +212,6 @@ const hexToRGB = hexStr => {
   // if the remaining string contains less than or more than 6 characters the 
   // string is invalid
   if (hexToConvert.length !== 6) throw new Error("hexadecimal string required in format '#F3A56D'");
-
-  //check for valid characters in the string
-  //const eachWord = str.replace(/[^a-z ]/gi,'').toLowerCase().split(" ");
-  //str = str.replace(/[g-z]/gi, '');
   
   // split the hexStr into 3 strings of 2 characters
   // store these in an array
@@ -226,55 +222,24 @@ const hexToRGB = hexStr => {
   // create an array to store the 3 converted decimal values
   const decConversion = [];
 
+  
   // convert each 2 digit hexadecimal value to decimal values
-  hexConversion.forEach((item,index) =>{
+  // reworking following Week10 homework feedback
+  // much easier to use parseInt(string, radix)
+  // to convert from base 16 string to base 10
+  // e.g. parseInt("FF",16) = 15
 
-    // create array to store multipliers for decimal conversion
-    let decMultipliers=[];
-
-    // loop through item digit in the current 2 digit hexadecimal
-    for (let i=0;i<2; i++){
-        // convert hexadecimal digits into decimal mulipliers
-        switch (item.charAt(i).toUpperCase()){
-        case "A":
-          decMultipliers.push(10);
-          break;
-        case "B":
-          decMultipliers.push(11);
-          break;
-        case "C":
-          decMultipliers.push(12);
-          break;
-        case "D":
-          decMultipliers.push(13);
-          break;
-        case "E":
-          decMultipliers.push(14);
-          break;
-        case "F":
-          decMultipliers.push(15);
-          break;
-        default:
-          // character is not A,B,C,D,E,F
-          // convert character to a number to use as a multiplier
-          decMultipliers.push(parseInt(item.charAt(i)));
-      }
+  hexConversion.forEach(item => {
+    // convert each 2 digit hexadecimal value to a decimal value
+    // and store in the decConversion array
+    decConversion.push(parseInt(item,16)); 
     
-    }
-      // convert the two character hexadecimal value to decimal
-      // and store the decimal value in a three element array
-      // decConversion
-      // formula for conversion
-      // 1st decimal multiplier * 16 + 2nd decimal multiplier 
-      decConversion[index] = decMultipliers[0]*16 + decMultipliers[1];
-      
   });
+  
   // return rgb values as a string in the format
   // "rgb(255,16,15)"
-  return ("rgb(" + decConversion[0].toString() + 
-    "," + decConversion[1].toString() + 
-    "," + decConversion[2].toString() + 
-    ")");
+  return (`rgb(${decConversion[0]},${decConversion[1]},${decConversion[2]})`);
+    
 };
 
 /**
