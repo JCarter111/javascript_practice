@@ -51,9 +51,13 @@ const isValidDNA = str => {
   // could add further code to convert string characters
   // to uppercase for comparison and allow lower case g,c,t,a
   // to be valid
+  // week 9 homework feedback - rework to use includes
+  // property of an array
+  // includes returns true if the character in the DNA
+  // string is found in the valid characters array
+  let validDNA= ["A","C","G","T"];
   for (let i=0; i<str.length;i++){
-    if (str.charAt(i)!=="C" && str.charAt(i)!=="G" && 
-      str.charAt(i)!=="T" && str.charAt(i)!=="A") return false;
+    if (!validDNA.includes(str.charAt(i))) return false;
   }
   return true;
 };

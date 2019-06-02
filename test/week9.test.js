@@ -48,7 +48,7 @@ describe("sumMultiples",() =>{
             }).toThrow("an array is required");
     });
 });
-describe("isValidDNA",() =>{
+describe.only("isValidDNA",() =>{
     test("returns true if a string containing only G,T,C,A characters is supplied",  () =>{ 
        // tried using toBeTruthy instead of toBe(true), which can also be used
         expect(isValidDNA("G")).toBeTruthy();
@@ -91,7 +91,7 @@ describe("isValidDNA",() =>{
             }).toThrow("a string is required");
     });
 });
-describe("getComplementaryDNA",() =>{
+describe.only("getComplementaryDNA",() =>{
     test("returns complementary DNA base string",  () =>{ 
         expect(getComplementaryDNA("G")).toBe("C");
         expect(getComplementaryDNA("T")).toBe("A");
