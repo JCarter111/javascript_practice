@@ -138,7 +138,7 @@ const getScreentimeAlertList = (users, date) => {
   if (!Array.isArray(users)) throw new Error("users array is required");
   // check that date is a string
   if (typeof date !== "string") 
-    throw new Error("date string is required in the formatt 'YYYY-MM-DD'");
+    throw new Error("date string is required in the format 'YYYY-MM-DD'");
   // check each user in the array of users
   // compare the date supplied to the function with the
   // dates contained in the from the objects in each users
@@ -151,28 +151,57 @@ const getScreentimeAlertList = (users, date) => {
   // create array to hold usernames of users with more than 100 minutes usage time
   const usersUsageGT100 = [];
 
-  // loop through each user in the users array
-  users.forEach(item => {
+
+  // week 11 homework feedback 
+  // write a function within the getScreentimeAlertList
+  // to locate records that match the date and find total
+  // usage
+  const checkUserUsage = (user,date) => {
+    // rework following Week 10 homework comments
     // set sum of current user's usage to zero
     let sumUserUsage = 0;
-    // check that user has a screenTime property
-    if (item.hasOwnProperty("screenTime")) {
-      // loop through each date in the user's screenTime array
-      item.screenTime.forEach (dateItem => {
-        // compare the current date in the user's screenTime array to date
-        if (dateItem.date === date) {
-        // date match found for the current user
+    // use find to locate an object in the screenTime
+    // array that has a date value matching the 
+    // date supplied to the function
+    // check for date match for the current user
+      const screenTimeObj = 
+      user.screenTime.find(dateItem => dateItem.date === date);  
+      // if a date match has been found screenTimeObj contains
+      // the screenTime object with the matching date
+      // if the date is not found screenTimeObj will by undefined
+      if (screenTimeObj !== undefined){
+        // screenTimeObj located matching the date
         // add up usage time
         // sum usage values of an object using for let loop
-          for (let key in dateItem.usage) {
-            sumUserUsage += dateItem.usage[key];
-          }
-        }  
-      });
-    }  
-    // if the sum of the usage on date is greater than 100
-    // add the user's username to the return array
-    if (sumUserUsage > 100) usersUsageGT100.push(item.username);  
+        for (let key in screenTimeObj.usage) {
+          sumUserUsage += screenTimeObj.usage[key];
+        } 
+        if (sumUserUsage > 100) {
+          // usage time is greater than 100, return true
+          return true;
+        } else {
+          // usage time is less than 100, return false
+          return false;
+        }
+      }  else {
+      // not date match found, return false
+        return false;
+      }
+
+    };
+  // loop through each user in the users array
+  users.forEach(item => {
+    
+    // check that user has a screenTime property
+    if (item.hasOwnProperty("screenTime")) {
+      // if the screenTime property is present, call function
+      // checkUserUsage to determine whether the user has
+      // a usage property on the specified date and whether
+      // their usage is greater than 100 mins on that date
+      if (checkUserUsage(item,date)) {
+        usersUsageGT100.push(item.username);
+      }
+    }
   });
   return usersUsageGT100;
 };

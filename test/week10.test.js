@@ -482,10 +482,10 @@ describe("getScreentimeAlertList",() =>{
             ]
         expect(() => {
             getScreentimeAlertList(userList, 2019);
-        }).toThrow("date string is required in the formatt 'YYYY-MM-DD'");
+        }).toThrow("date string is required in the format 'YYYY-MM-DD'");
         expect(() => {
             getScreentimeAlertList(userList,{date: "2019-05-02"});
-        }).toThrow("date string is required in the formatt 'YYYY-MM-DD'");
+        }).toThrow("date string is required in the format 'YYYY-MM-DD'");
         
     });
     test(
@@ -523,7 +523,7 @@ describe("getScreentimeAlertList",() =>{
         }).toThrow("users array is required");
     });
 });
-describe.only("hexToRGB",() =>{
+describe("hexToRGB",() =>{
 
     test("produces the correct rgb value if a valid hexadecimal string starting with # is provided",  () =>{
         expect(hexToRGB("#123456")).toBe("rgb(18,52,86)");
