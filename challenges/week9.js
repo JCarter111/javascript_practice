@@ -59,7 +59,8 @@ const isValidDNA = str => {
   // ^ - start at the beginning of the string
   // $ - match to the end of the string
   // + - match one or more of the proceeding characters
-  // g - global match, find all matches
+  // g - global match, find all matches but not
+  // required because only one string provided
   // rather than stopping after the first match
   let validDNA = new RegExp(/^[ACGT]+$/); 
   if (validDNA.test(str)) {
