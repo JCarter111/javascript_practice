@@ -85,19 +85,14 @@ const getComplementaryDNA = str => {
   // Week 9 homework feedback rework to use .map
   // method for an array
   const objBasePair = {A:"T", C:"G", G:"C", T:"A"}
-  // loop through DNA string
-  const arrComplementaryDNA = 
-    str.split("").map(item => {
-      for (let key in objBasePair) {
-        if (item === key)
-        return objBasePair[key];
-      }
-  });
+  // split the DNA string into an array of individual 
+  // characters
+  // map these characters to the complementary pairs
+  // using objBasePair
+  // join the map array back into a string of 
+  // complementary pairs
   //return the complimentary DNA base string
-  // by joining the complementary DNA elements 
-  // in arrComplementaryDNA with
-  // no spaces between them
-  return arrComplementaryDNA.join("");
+  return str.split("").map(item => objBasePair[item]).join("");
 };
 
 /**
