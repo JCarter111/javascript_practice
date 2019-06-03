@@ -84,23 +84,14 @@ const getComplementaryDNA = str => {
   if(!isValidDNA(str)) throw new Error("valid DNA sequence is required");
   // Week 9 homework feedback rework to use .map
   // method for an array
-  
+  const objBasePair = {A:"T", C:"G", G:"C", T:"A"}
   // loop through DNA string
   const arrComplementaryDNA = 
     str.split("").map(item => {
-    // use switch to replace each
-    // character with the complimentary base
-    // complimentary base returned in uppercase
-    switch (item) {
-      case "G":
-        return "C";
-      case "C":
-        return "G";
-      case "T":
-        return "A";        
-      case "A":
-        return "T";
-    }
+      for (let key in objBasePair) {
+        if (item === key)
+        return objBasePair[key];
+      }
   });
   //return the complimentary DNA base string
   // by joining the complementary DNA elements 
