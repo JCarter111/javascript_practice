@@ -48,7 +48,7 @@ describe("sumMultiples",() =>{
             }).toThrow("an array is required");
     });
 });
-describe.only("isValidDNA",() =>{
+describe("isValidDNA",() =>{
     test("returns true if a string containing only G,T,C,A characters is supplied",  () =>{ 
        // tried using toBeTruthy instead of toBe(true), which can also be used
         expect(isValidDNA("G")).toBeTruthy();

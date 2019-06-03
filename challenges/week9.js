@@ -82,31 +82,31 @@ const getComplementaryDNA = str => {
   // if the string is not a valid DNA sequence
   // show an error message and exit this function
   if(!isValidDNA(str)) throw new Error("valid DNA sequence is required");
-  // initialise string to contain complimentary
-  // DNA base sequence
-  let strComplementaryDNA = "";
+  // Week 9 homework feedback rework to use .map
+  // method for an array
+  
   // loop through DNA string
-  str.split("").forEach(item => {
+  const arrComplementaryDNA = 
+    str.split("").map(item => {
     // use switch to replace each
     // character with the complimentary base
     // complimentary base returned in uppercase
     switch (item) {
       case "G":
-        strComplementaryDNA += "C";
-        break;
+        return "C";
       case "C":
-        strComplementaryDNA += "G";
-        break;
+        return "G";
       case "T":
-        strComplementaryDNA += "A";
-        break;
+        return "A";        
       case "A":
-        strComplementaryDNA += "T";
-        break;
+        return "T";
     }
   });
   //return the complimentary DNA base string
-  return strComplementaryDNA;
+  // by joining the complementary DNA elements 
+  // in arrComplementaryDNA with
+  // no spaces between them
+  return arrComplementaryDNA.join("");
 };
 
 /**
